@@ -8,10 +8,11 @@
 
 #import "ViewController.h"
 #import "WPFDragViewController.h"
+#import "WPFTableViewViewController.h"
 
 static NSString *const identifier = @"cellIdentifier";
 
-@interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataSource;
@@ -49,6 +50,10 @@ static NSString *const identifier = @"cellIdentifier";
             [self _showDragView];
             break;
             
+            case 1:
+            [self _showTableViewFeatureVC];
+            break;
+            
         default:
             break;
     }
@@ -59,7 +64,7 @@ static NSString *const identifier = @"cellIdentifier";
     self.navigationItem.title = @"iOS11-NewFeature";
     self.navigationController.navigationBar.largeTitleTextAttributes = @{
                                                  NSFontAttributeName:[UIFont fontWithName:@"PingFangSC-Medium" size:28],
-                                      NSForegroundColorAttributeName:[UIColor blackColor],
+                                      NSForegroundColorAttributeName:[UIColor orangeColor],
                                                                          };
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
@@ -77,6 +82,11 @@ static NSString *const identifier = @"cellIdentifier";
 - (void)_showDragView {
     WPFDragViewController *dragVC = [[WPFDragViewController alloc] init];
     [self.navigationController pushViewController:dragVC animated:YES];
+}
+
+- (void)_showTableViewFeatureVC {
+    WPFTableViewViewController *tableViewVC = [[WPFTableViewViewController alloc] init];
+    [self.navigationController pushViewController:tableViewVC animated:YES];
 }
 
 #pragma mark - setters && getters

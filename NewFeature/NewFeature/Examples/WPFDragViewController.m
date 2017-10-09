@@ -20,6 +20,12 @@
     [self _setupView];
 }
 
+#pragma mark - UIDragInteractionDelegate
+
+//- (NSArray<UIDragItem *> *)dragInteraction:(UIDragInteraction *)interaction itemsForBeginningSession:(id<UIDragSession>)session {
+//    NSArray *items = [self ]
+//}
+
 #pragma mark - Private Method
 - (void)_setupView {
     self.view.backgroundColor = [UIColor whiteColor];
@@ -35,5 +41,13 @@
 //    NSItemProvider *itemProvider =
 //    UIDragItem *dragItem = [UIDragItem alloc] initWithItemProvider:<#(nonnull NSItemProvider *)#>
 }
+
+//- (NSArray*)_itemsForSession:(id<UIDragSession>)session {
+//    NSItemProvider* provider = [[NSItemProvider alloc] initWithObject:_item];
+//    UIDragItem* item = [[UIDragItem alloc] initWithItemProvider:provider];
+//    item.localObject = _item;
+//
+//    return @[item];
+//}
 
 @end
