@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "WPFDragViewController.h"
 
 static NSString *const identifier = @"cellIdentifier";
 
@@ -40,6 +41,19 @@ static NSString *const identifier = @"cellIdentifier";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.row) {
+            case 0:
+            [self _showDragView];
+            break;
+            
+        default:
+            break;
+    }
+}
+
 #pragma mark - Private Method
 - (void)_setupNav {
     self.navigationItem.title = @"iOS11-NewFeature";
@@ -48,6 +62,7 @@ static NSString *const identifier = @"cellIdentifier";
                                       NSForegroundColorAttributeName:[UIColor blackColor],
                                                                          };
     self.navigationController.navigationBar.prefersLargeTitles = YES;
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
 }
 
 - (void)_setupTableView {
@@ -59,11 +74,16 @@ static NSString *const identifier = @"cellIdentifier";
     [self.view addSubview:_tableView];
 }
 
+- (void)_showDragView {
+    WPFDragViewController *dragVC = [[WPFDragViewController alloc] init];
+    [self.navigationController pushViewController:dragVC animated:YES];
+}
+
 #pragma mark - setters && getters
 
 - (NSArray *)dataSource {
     if (!_dataSource) {
-        _dataSource = @[@"拖拽控件", @"左滑右滑操作"];
+        _dataSource = @[@"拖拽控件", @"UITableView 新特性"];
     }
     return _dataSource;
 }

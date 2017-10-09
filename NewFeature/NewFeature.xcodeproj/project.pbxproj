@@ -13,6 +13,7 @@
 		35DAC3BD1F8B5C8500D724CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35DAC3BC1F8B5C8500D724CF /* Assets.xcassets */; };
 		35DAC3C01F8B5C8500D724CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35DAC3BE1F8B5C8500D724CF /* LaunchScreen.storyboard */; };
 		35DAC3C31F8B5C8500D724CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC3C21F8B5C8500D724CF /* main.m */; };
+		35DAC3CD1F8B6B5F00D724CF /* WPFDragViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC3CC1F8B6B5F00D724CF /* WPFDragViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		35DAC3BF1F8B5C8500D724CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		35DAC3C11F8B5C8500D724CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35DAC3C21F8B5C8500D724CF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		35DAC3CB1F8B6B5F00D724CF /* WPFDragViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPFDragViewController.h; sourceTree = "<group>"; };
+		35DAC3CC1F8B6B5F00D724CF /* WPFDragViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPFDragViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 		35DAC3B21F8B5C8500D724CF /* NewFeature */ = {
 			isa = PBXGroup;
 			children = (
+				35DAC3CA1F8B6B2F00D724CF /* Drag&Drop */,
 				35DAC3B31F8B5C8500D724CF /* AppDelegate.h */,
 				35DAC3B41F8B5C8500D724CF /* AppDelegate.m */,
 				35DAC3B61F8B5C8500D724CF /* ViewController.h */,
@@ -69,6 +73,15 @@
 				35DAC3C21F8B5C8500D724CF /* main.m */,
 			);
 			path = NewFeature;
+			sourceTree = "<group>";
+		};
+		35DAC3CA1F8B6B2F00D724CF /* Drag&Drop */ = {
+			isa = PBXGroup;
+			children = (
+				35DAC3CB1F8B6B5F00D724CF /* WPFDragViewController.h */,
+				35DAC3CC1F8B6B5F00D724CF /* WPFDragViewController.m */,
+			);
+			path = "Drag&Drop";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -97,6 +110,7 @@
 		35DAC3A81F8B5C8500D724CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = WPF;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Leon;
 				TargetAttributes = {
@@ -142,6 +156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35DAC3CD1F8B6B5F00D724CF /* WPFDragViewController.m in Sources */,
 				35DAC3B81F8B5C8500D724CF /* ViewController.m in Sources */,
 				35DAC3C31F8B5C8500D724CF /* main.m in Sources */,
 				35DAC3B51F8B5C8500D724CF /* AppDelegate.m in Sources */,
