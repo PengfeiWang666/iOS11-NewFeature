@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "WPFDragViewController.h"
-#import "WPFTableViewViewController.h"
+#import "WPFSwipeViewController.h"
 
 static NSString *const identifier = @"cellIdentifier";
 
@@ -85,7 +85,7 @@ static NSString *const identifier = @"cellIdentifier";
 }
 
 - (void)_showTableViewFeatureVC {
-    WPFTableViewViewController *tableViewVC = [[WPFTableViewViewController alloc] init];
+    WPFSwipeViewController *tableViewVC = [[WPFSwipeViewController alloc] init];
     [self.navigationController pushViewController:tableViewVC animated:YES];
 }
 
@@ -93,7 +93,7 @@ static NSString *const identifier = @"cellIdentifier";
 
 - (NSArray *)dataSource {
     if (!_dataSource) {
-        _dataSource = @[@"拖拽控件", @"UITableView 新特性"];
+        _dataSource = @[@"UITableView-Drag & Drop", @"UITableView Swipe手势新特性"];
     }
     return _dataSource;
 }

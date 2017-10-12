@@ -14,7 +14,7 @@
 		35DAC3C01F8B5C8500D724CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35DAC3BE1F8B5C8500D724CF /* LaunchScreen.storyboard */; };
 		35DAC3C31F8B5C8500D724CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC3C21F8B5C8500D724CF /* main.m */; };
 		35DAC3CD1F8B6B5F00D724CF /* WPFDragViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC3CC1F8B6B5F00D724CF /* WPFDragViewController.m */; };
-		35DAC3D01F8B756700D724CF /* WPFTableViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC3CF1F8B756700D724CF /* WPFTableViewViewController.m */; };
+		35DAC3D01F8B756700D724CF /* WPFSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC3CF1F8B756700D724CF /* WPFSwipeViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +30,8 @@
 		35DAC3C21F8B5C8500D724CF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		35DAC3CB1F8B6B5F00D724CF /* WPFDragViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPFDragViewController.h; sourceTree = "<group>"; };
 		35DAC3CC1F8B6B5F00D724CF /* WPFDragViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPFDragViewController.m; sourceTree = "<group>"; };
-		35DAC3CE1F8B756700D724CF /* WPFTableViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPFTableViewViewController.h; sourceTree = "<group>"; };
-		35DAC3CF1F8B756700D724CF /* WPFTableViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPFTableViewViewController.m; sourceTree = "<group>"; };
+		35DAC3CE1F8B756700D724CF /* WPFSwipeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPFSwipeViewController.h; sourceTree = "<group>"; };
+		35DAC3CF1F8B756700D724CF /* WPFSwipeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPFSwipeViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +45,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		35D187691F8F9259000F571B /* Category */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		35DAC3A71F8B5C8500D724CF = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +71,7 @@
 		35DAC3B21F8B5C8500D724CF /* NewFeature */ = {
 			isa = PBXGroup;
 			children = (
+				35D187691F8F9259000F571B /* Category */,
 				35DAC3CA1F8B6B2F00D724CF /* Examples */,
 				35DAC3B31F8B5C8500D724CF /* AppDelegate.h */,
 				35DAC3B41F8B5C8500D724CF /* AppDelegate.m */,
@@ -83,8 +91,8 @@
 			children = (
 				35DAC3CB1F8B6B5F00D724CF /* WPFDragViewController.h */,
 				35DAC3CC1F8B6B5F00D724CF /* WPFDragViewController.m */,
-				35DAC3CE1F8B756700D724CF /* WPFTableViewViewController.h */,
-				35DAC3CF1F8B756700D724CF /* WPFTableViewViewController.m */,
+				35DAC3CE1F8B756700D724CF /* WPFSwipeViewController.h */,
+				35DAC3CF1F8B756700D724CF /* WPFSwipeViewController.m */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -165,7 +173,7 @@
 				35DAC3B81F8B5C8500D724CF /* ViewController.m in Sources */,
 				35DAC3C31F8B5C8500D724CF /* main.m in Sources */,
 				35DAC3B51F8B5C8500D724CF /* AppDelegate.m in Sources */,
-				35DAC3D01F8B756700D724CF /* WPFTableViewViewController.m in Sources */,
+				35DAC3D01F8B756700D724CF /* WPFSwipeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +308,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ST685X75RG;
 				INFOPLIST_FILE = NewFeature/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wpf.apple.NewFeature;
@@ -313,6 +322,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ST685X75RG;
 				INFOPLIST_FILE = NewFeature/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wpf.apple.NewFeature;

@@ -1,23 +1,23 @@
 //
-//  WPFTableViewViewController.m
+//  WPFSwipeViewController.m
 //  NewFeature
 //
 //  Created by Leon on 2017/10/9.
 //  Copyright © 2017年 Leon. All rights reserved.
 //
 
-#import "WPFTableViewViewController.h"
+#import "WPFSwipeViewController.h"
 
-static NSString *const identifier = @"cellIdentifier";
+static NSString *const identifier = @"kSwipeCellIdentifier";
 
-@interface WPFTableViewViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface WPFSwipeViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 @end
 
-@implementation WPFTableViewViewController
+@implementation WPFSwipeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -89,9 +89,14 @@ static NSString *const identifier = @"cellIdentifier";
     return nil;
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldSpringLoadRowAtIndexPath:(NSIndexPath *)indexPath withContext:(id<UISpringLoadedInteractionContext>)context {
+    
+    return YES;
+}
+
 #pragma mark - Private Method
 - (void)_setupView {
-    self.navigationItem.title = @"UITableView 新特性";
+    self.navigationItem.title = @"UITableView Swipe-新特性";
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 

@@ -1,5 +1,5 @@
 //
-//  WPFTableViewViewController.h
+//  WPFSwipeViewController.h
 //  NewFeature
 //
 //  Created by Leon on 2017/10/9.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WPFTableViewViewController : UIViewController
+@interface WPFSwipeViewController : UIViewController
 
 @end
