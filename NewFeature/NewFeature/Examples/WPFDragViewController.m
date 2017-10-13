@@ -7,9 +7,9 @@
 //
 
 #import "WPFDragViewController.h"
+#import "WPFImageTableViewCell.h"
 
-
-static NSString *const identifier = @"kSwipeCellIdentifier";
+static NSString *const identifier = @"kDragCellIdentifier";
 
 @interface WPFDragViewController () <UITableViewDelegate, UITableViewDataSource, UITableViewDragDelegate>
 
@@ -32,16 +32,16 @@ static NSString *const identifier = @"kSwipeCellIdentifier";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    WPFImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
 //    cell.textLabel.text = self.dataSource[indexPath.row];
     cell.textLabel.numberOfLines = 0;
-    cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"image%ld", indexPath.row]];
+    cell.targetImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"image%ld", indexPath.row]];
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100;
+    return 180;
 }
 
 #pragma mark - UITableViewDelegate
@@ -55,32 +55,6 @@ static NSString *const identifier = @"kSwipeCellIdentifier";
     
     return YES;
 }
-
-#pragma mark - Private Method
-- (void)_setupView {
-    self.navigationItem.title = @"UITableView -Drag & Drop";
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
-    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.dragDelegate = self;
-    _tableView.dragInteractionEnabled = YES;
-    [self.view addSubview:_tableView];
-}
-
-#pragma mark - setters && getters
-
-- (NSMutableArray *)dataSource {
-    if (!_dataSource) {
-        _dataSource = [NSMutableArray arrayWithArray:@[@"111111", @"22222", @"333333", @"44444", @"ss", @"sss"]];
-    }
-    return _dataSource;
-}
-
 
 #pragma mark - UITableViewDragDelegate
 
@@ -99,7 +73,7 @@ static NSString *const identifier = @"kSwipeCellIdentifier";
 }
 
 - (NSArray<UIDragItem *> *)tableView:(UITableView *)tableView itemsForAddingToDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
-
+    
     NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:[UIImage imageNamed:[NSString stringWithFormat:@"thumb%ld", indexPath.row]]];
     UIDragItem *item = [[UIDragItem alloc] initWithItemProvider:itemProvider];
     return @[item];
@@ -110,7 +84,7 @@ static NSString *const identifier = @"kSwipeCellIdentifier";
     UIDragPreviewParameters *parameters = [[UIDragPreviewParameters alloc] init];
     parameters.backgroundColor = [UIColor redColor];
     
-    CGRect rect = CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.width);
+    CGRect rect = CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.width*0.4);
     parameters.visiblePath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:15];
     return parameters;
 }
@@ -158,5 +132,33 @@ static NSString *const identifier = @"kSwipeCellIdentifier";
 //- (void)updateFocusIfNeeded {
 //    <#code#>
 //}
+
+#pragma mark - Private Method
+- (void)_setupView {
+    self.navigationItem.title = @"UITableView -Drag & Drop";
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    [_tableView registerClass:[WPFImageTableViewCell class] forCellReuseIdentifier:identifier];
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.dragDelegate = self;
+    _tableView.dragInteractionEnabled = YES;
+    [self.view addSubview:_tableView];
+}
+
+#pragma mark - setters && getters
+
+- (NSMutableArray *)dataSource {
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray arrayWithArray:@[@"111111", @"22222", @"333333", @"44444", @"ss", @"sss"]];
+    }
+    return _dataSource;
+}
+
+
+
 
 @end
