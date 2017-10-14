@@ -40,10 +40,6 @@ static NSString *const identifier = @"kDragCellIdentifier";
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 180;
-}
-
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -82,60 +78,15 @@ static NSString *const identifier = @"kDragCellIdentifier";
 - (nullable UIDragPreviewParameters *)tableView:(UITableView *)tableView dragPreviewParametersForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UIDragPreviewParameters *parameters = [[UIDragPreviewParameters alloc] init];
-    parameters.backgroundColor = [UIColor redColor];
     
-    CGRect rect = CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.width*0.4);
+    CGRect rect = CGRectMake(0, 0, tableView.bounds.size.width, tableView.rowHeight);
     parameters.visiblePath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:15];
     return parameters;
 }
 
-//- (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
-//    <#code#>
-//}
-//
-//- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
-//    <#code#>
-//}
-//
-//- (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
-//    <#code#>
-//}
-//
-//- (CGSize)sizeForChildContentContainer:(nonnull id<UIContentContainer>)container withParentContainerSize:(CGSize)parentSize {
-//    <#code#>
-//}
-//
-//- (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
-//    <#code#>
-//}
-//
-//- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
-//    <#code#>
-//}
-//
-//- (void)willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
-//    <#code#>
-//}
-//
-//- (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator {
-//    <#code#>
-//}
-//
-//- (void)setNeedsFocusUpdate {
-//    <#code#>
-//}
-//
-//- (BOOL)shouldUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context {
-//    <#code#>
-//}
-//
-//- (void)updateFocusIfNeeded {
-//    <#code#>
-//}
-
 #pragma mark - Private Method
 - (void)_setupView {
-    self.navigationItem.title = @"UITableView -Drag & Drop";
+    self.navigationItem.title = @"UITableView - Drag & Drop";
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     
@@ -146,6 +97,8 @@ static NSString *const identifier = @"kDragCellIdentifier";
     _tableView.dataSource = self;
     _tableView.dragDelegate = self;
     _tableView.dragInteractionEnabled = YES;
+    _tableView.separatorInset = UIEdgeInsetsZero;
+    _tableView.rowHeight = 250;
     [self.view addSubview:_tableView];
 }
 

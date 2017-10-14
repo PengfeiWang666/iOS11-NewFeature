@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "WPFDragViewController.h"
 #import "WPFSwipeViewController.h"
+#import "WPFNormalDragViewController.h"
 
 static NSString *const identifier = @"cellIdentifier";
 
@@ -47,10 +48,14 @@ static NSString *const identifier = @"cellIdentifier";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
             case 0:
-            [self _showDragView];
+            [self _showNormalDragView];
             break;
             
             case 1:
+            [self _showTableViewDragView];
+            break;
+            
+            case 2:
             [self _showTableViewFeatureVC];
             break;
             
@@ -79,7 +84,12 @@ static NSString *const identifier = @"cellIdentifier";
     [self.view addSubview:_tableView];
 }
 
-- (void)_showDragView {
+- (void)_showNormalDragView {
+    WPFNormalDragViewController *dragVC = [[WPFNormalDragViewController alloc] init];
+    [self.navigationController pushViewController:dragVC animated:YES];
+}
+
+- (void)_showTableViewDragView {
     WPFDragViewController *dragVC = [[WPFDragViewController alloc] init];
     [self.navigationController pushViewController:dragVC animated:YES];
 }
@@ -93,7 +103,7 @@ static NSString *const identifier = @"cellIdentifier";
 
 - (NSArray *)dataSource {
     if (!_dataSource) {
-        _dataSource = @[@"UITableView-Drag & Drop", @"UITableView Swipe手势新特性"];
+        _dataSource = @[@"UIView-Drag & Drop", @"UITableView-Drag & Drop", @"UITableView Swipe手势新特性"];
     }
     return _dataSource;
 }
