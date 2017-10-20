@@ -54,13 +54,6 @@ static NSString *const identifier = @"kDragCellIdentifier";
 
 #pragma mark - UITableViewDragDelegate
 
-//- (NSArray<UIDragItem *> *)tableView:(UITableView *)tableView itemsForBeginningDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath {
-//
-//}
-
-#pragma mark - UITableViewDropDelegate
-
-
 - (nonnull NSArray<UIDragItem *> *)tableView:(nonnull UITableView *)tableView itemsForBeginningDragSession:(nonnull id<UIDragSession>)session atIndexPath:(nonnull NSIndexPath *)indexPath {
     
     NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:[UIImage imageNamed:[NSString stringWithFormat:@"thumb%ld", indexPath.row]]];
@@ -83,6 +76,13 @@ static NSString *const identifier = @"kDragCellIdentifier";
     parameters.visiblePath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:15];
     return parameters;
 }
+
+#pragma mark - UITableViewDropDelegate
+// 当用户开始初始化 drop 手势的时候会调用该方法
+- (void)tableView:(UITableView *)tableView performDropWithCoordinator:(id<UITableViewDropCoordinator>)coordinator {
+    
+}
+
 
 #pragma mark - Private Method
 - (void)_setupView {
