@@ -79,9 +79,8 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
 
 #pragma mark - UICollectionViewDragDelegate
 
-/**
- 提供一个 给定 indexPath 的可进行 drag 操作的 item
- 如果返回 nil，则不会发生任何拖拽事件
+/* 提供一个 给定 indexPath 的可进行 drag 操作的 item
+ * 如果返回 nil，则不会发生任何拖拽事件
  */
 - (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForBeginningDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath {
     
@@ -102,8 +101,8 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
 //    return @[item];
 //}
 
-/** 允许对从取消或返回到 CollectionView 的 item 使用自定义预览
-    如果该方法没有实现或者返回nil，那么整个 cell 将用于预览
+/* 允许对从取消或返回到 CollectionView 的 item 使用自定义预览
+ * 如果该方法没有实现或者返回nil，那么整个 cell 将用于预览
  */
 - (nullable UIDragPreviewParameters *)collectionView:(UICollectionView *)collectionView dragPreviewParametersForItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -115,12 +114,24 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
     return parameters;
 }
 
+/* 当 lift animation 完成之后开始拖拽之前会调用该方法
+ * 该方法肯定会对应着 -collectionView:dragSessionDidEnd: 的调用
+ */
+- (void)collectionView:(UICollectionView *)collectionView dragSessionWillBegin:(id<UIDragSession>)session {
+    NSLog(@"dragSessionWillBegin --> drag 会话将要开始");
+}
+
+// 拖拽结束的时候会调用该方法
+- (void)collectionView:(UICollectionView *)collectionView dragSessionDidEnd:(id<UIDragSession>)session {
+    NSLog(@"dragSessionDidEnd --> drag 会话已经结束");
+}
+
 #pragma mark - UICollectionViewDropDelegate
 
 
-/** 当用户开始进行 drop 操作的时候会调用这个方法
-   使用 dropCoordinator 去置顶如果处理当前 drop 会话的item 到指定的最终位置，同时也会根据drop item返回的数据更新数据源
-   如果该方法不做任何事，将会执行默认的动画
+/* 当用户开始进行 drop 操作的时候会调用这个方法
+ * 使用 dropCoordinator 去置顶如果处理当前 drop 会话的item 到指定的最终位置，同时也会根据drop item返回的数据更新数据源
+ * 如果该方法不做任何事，将会执行默认的动画
  */
 - (void)collectionView:(UICollectionView *)collectionView performDropWithCoordinator:(id<UICollectionViewDropCoordinator>)coordinator {
     
@@ -139,12 +150,13 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
     }];
 }
 
-// 该方法是提供释放方案的方法，虽然是optional，但是最好实现
-// 当 跟踪 drop 行为在 tableView 空间坐标区域内部时会频繁调用
-// 当drop手势在某个section末端的时候，传递的目标索引路径还不存在（此时 indexPath 等于 该 section 的行数），这时候会追加到该section 的末尾
-// 在某些情况下，目标索引路径可能为空（比如拖到一个没有cell的空白区域）
-// 请注意，在某些情况下，你的建议可能不被系统所允许，此时系统将执行不同的建议
-// 你可以通过 -[session locationInView:] 做你自己的命中测试
+/* 该方法是提供释放方案的方法，虽然是optional，但是最好实现
+ * 当 跟踪 drop 行为在 tableView 空间坐标区域内部时会频繁调用
+ * 当drop手势在某个section末端的时候，传递的目标索引路径还不存在（此时 indexPath 等于 该 section 的行数），这时候会追加到该section 的末尾
+ * 在某些情况下，目标索引路径可能为空（比如拖到一个没有cell的空白区域）
+ * 请注意，在某些情况下，你的建议可能不被系统所允许，此时系统将执行不同的建议
+ * 你可以通过 -[session locationInView:] 做你自己的命中测试
+ */
 - (UICollectionViewDropProposal *)collectionView:(UICollectionView *)collectionView dropSessionDidUpdate:(id<UIDropSession>)session withDestinationIndexPath:(nullable NSIndexPath *)destinationIndexPath {
     
     /**
@@ -168,6 +180,49 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
     }
     
     return dropProposal;
+}
+
+/* 通过该方法判断对应的item 能否被 执行drop会话
+ * 如果返回 NO，将不会调用接下来的代理方法
+ * 如果没有实现该方法，那么默认返回 YES
+ */
+- (BOOL)collectionView:(UICollectionView *)collectionView canHandleDropSession:(id<UIDropSession>)session {
+    // 假设在该 drop 只能在当前本 app中可执行，在别的 app 中不可以
+    if (session.localDragSession == nil) {
+        return NO;
+    }
+    return YES;
+}
+
+/* 当drop会话进入到 collectionView 的坐标区域内就会调用，
+ * 早于- [collectionView dragSessionWillBegin] 调用
+ */
+- (void)collectionView:(UICollectionView *)collectionView dropSessionDidEnter:(id<UIDropSession>)session {
+    NSLog(@"dropSessionDidEnter --> dropSession进入目标区域");
+}
+
+/* 当 dropSession 不在collectionView 目标区域的时候会被调用
+ */
+- (void)collectionView:(UICollectionView *)collectionView dropSessionDidExit:(id<UIDropSession>)session {
+    NSLog(@"dropSessionDidExit --> dropSession 离开目标区域");
+}
+
+/* 当dropSession 完成时会被调用，不管结果如何
+ * 适合在这个方法里做一些清理的操作
+ */
+- (void)collectionView:(UICollectionView *)collectionView dropSessionDidEnd:(id<UIDropSession>)session {
+    NSLog(@"dropSessionDidEnd --> dropSession 已完成");
+}
+
+/* 当 item 执行drop 操作的时候，可以自定义预览图
+ * 如果没有实现该方法或者返回nil，整个cell将会被用于预览图
+ *
+ * 该方法会经由  -[UICollectionViewDropCoordinator dropItem:toItemAtIndexPath:] 调用
+ * 如果要去自定义占位drop，可以查看 UICollectionViewDropPlaceholder.previewParametersProvider
+ */
+- (nullable UIDragPreviewParameters *)collectionView:(UICollectionView *)collectionView dropPreviewParametersForItemAtIndexPath:(NSIndexPath *)indexPath {
+
+    return nil;
 }
 
 #pragma mark - Getters && Setters
