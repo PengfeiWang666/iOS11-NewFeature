@@ -16,15 +16,13 @@
     
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self setupUI];
+        [self _setupUI];
     }
     return self;
 }
 
-- (void)setupUI {
-    
+- (void)_setupUI {
     [self.contentView addSubview:self.targetImageView];
-    
 }
 
 - (void)layoutSubviews {

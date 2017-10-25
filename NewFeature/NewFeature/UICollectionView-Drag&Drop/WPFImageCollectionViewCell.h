@@ -10,4 +10,6 @@
 
 @interface WPFImageCollectionViewCell : UICollectionViewCell
 
+@property (nonatomic, strong) UIImageView *targetImageView;
+
 @end
