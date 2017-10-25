@@ -102,7 +102,10 @@ static NSString *const identifier = @"kDragCellIdentifier";
     
     [tableView performBatchUpdates:^{
         // 目标 cell 换位置
-        [self.dataSource exchangeObjectAtIndex:destinationIndexPath.row withObjectAtIndex:self.dragIndexPath.row];
+        id obj = self.dataSource[self.dragIndexPath.row];
+        [self.dataSource removeObjectAtIndex:self.dragIndexPath.row];
+        [self.dataSource insertObject:obj atIndex:destinationIndexPath.row];
+        
         [tableView moveRowAtIndexPath:self.dragIndexPath toIndexPath:destinationIndexPath];
     } completion:^(BOOL finished) {
         
