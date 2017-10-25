@@ -68,7 +68,7 @@ static NSString *const identifier = @"kDragCellIdentifier";
  */
 - (nonnull NSArray<UIDragItem *> *)tableView:(nonnull UITableView *)tableView itemsForBeginningDragSession:(nonnull id<UIDragSession>)session atIndexPath:(nonnull NSIndexPath *)indexPath {
     
-    NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:[UIImage imageNamed:[NSString stringWithFormat:@"thumb%ld", indexPath.row]]];
+    NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:self.dataSource[indexPath.row]];
     UIDragItem *item = [[UIDragItem alloc] initWithItemProvider:itemProvider];
     self.dragIndexPath = indexPath;
     return @[item];
@@ -76,7 +76,7 @@ static NSString *const identifier = @"kDragCellIdentifier";
 
 - (NSArray<UIDragItem *> *)tableView:(UITableView *)tableView itemsForAddingToDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
     
-    NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:[UIImage imageNamed:[NSString stringWithFormat:@"thumb%ld", indexPath.row]]];
+    NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:self.dataSource[indexPath.row]];
     UIDragItem *item = [[UIDragItem alloc] initWithItemProvider:itemProvider];
     return @[item];
 }

@@ -11,11 +11,13 @@
 
 static NSString *imageCellIdentifier = @"imageCellIdentifier";
 
-@interface WPFDragCollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface WPFDragCollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDragDelegate>
 
 @property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+/** 记录拖拽的 indexPath */
+@property (nonatomic, strong) NSIndexPath *dragIndexPath;
 
 @end
 
@@ -43,15 +45,17 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
     flowLayout.minimumLineSpacing = 10;
     flowLayout.minimumInteritemSpacing = 10;
     [flowLayout setSectionInset:UIEdgeInsetsMake(15, 12, 15, 12)];
+    self.flowLayout = flowLayout;
     
     _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
     [_collectionView registerClass:[WPFImageCollectionViewCell class] forCellWithReuseIdentifier:imageCellIdentifier];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 20)];
-//    _collectionView
+    _collectionView.dragDelegate = self;
+    _collectionView.dragInteractionEnabled = YES;
+    _collectionView.backgroundColor = [UIColor whiteColor];
+
     [self.view addSubview:_collectionView];
-    _collectionView.backgroundColor = [UIColor cyanColor];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -70,6 +74,44 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
 
 
 #pragma mark - UICollectionViewDelegate
+
+#pragma mark - UICollectionViewDragDelegate
+
+/**
+ 提供一个 给定 indexPath 的可进行 drag 操作的 item
+ 如果返回 nil，则不会发生任何拖拽事件
+ */
+- (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForBeginningDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath {
+    
+    NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:self.dataSource[indexPath.item]];
+    UIDragItem *item = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+    self.dragIndexPath = indexPath;
+    return @[item];
+}
+
+/* Called to request items to add to an existing drag session in response to the add item gesture.
+ * You can use the provided point (in the collection view's coordinate space) to do additional hit testing if desired.
+ * If not implemented, or if an empty array is returned, no items will be added to the drag and the gesture
+ * will be handled normally.
+ */
+- (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForAddingToDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+    NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:self.dataSource[indexPath.item]];
+    UIDragItem *item = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+    return @[item];
+}
+
+/** 允许对从取消或返回到 CollectionView 的 item 使用自定义预览
+    如果该方法没有实现或者返回nil，那么整个 cell 将用于预览
+ */
+- (nullable UIDragPreviewParameters *)collectionView:(UICollectionView *)collectionView dragPreviewParametersForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UIDragPreviewParameters *parameters = [[UIDragPreviewParameters alloc] init];
+    
+    CGFloat previewLength = self.flowLayout.itemSize.width;
+    CGRect rect = CGRectMake(0, 0, previewLength, previewLength);
+    parameters.visiblePath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:5];
+    return parameters;
+}
 
 #pragma mark - Getters && Setters
 

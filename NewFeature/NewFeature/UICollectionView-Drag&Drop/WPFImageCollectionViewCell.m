@@ -28,7 +28,7 @@
     if (!_targetImageView) {
         _targetImageView = [[UIImageView alloc] init];
         _targetImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _targetImageView.layer.cornerRadius = 10;
+        _targetImageView.layer.cornerRadius = 5;
         _targetImageView.clipsToBounds = YES;
     }
     return _targetImageView;
