@@ -64,6 +64,10 @@ static NSString *const identifier = @"cellIdentifier";
             [self _showTableViewFeatureVC];
             break;
             
+            case 4:
+            [self _showCoreNFCVC];
+            break;
+            
         default:
             break;
     }
@@ -95,8 +99,13 @@ static NSString *const identifier = @"cellIdentifier";
 }
 
 - (void)_showNormalDragView {
-    WPFNormalDragViewController *normalDragVC = [[WPFNormalDragViewController alloc] init];
-    [self.navigationController pushViewController:normalDragVC animated:YES];
+    
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"该demo暂未完成" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+    [alertVC addAction:confirmAction];
+    [self presentViewController:alertVC animated:YES completion:nil];
+//    WPFNormalDragViewController *normalDragVC = [[WPFNormalDragViewController alloc] init];
+//    [self.navigationController pushViewController:normalDragVC animated:YES];
 }
 
 - (void)_showTableViewDragView {
@@ -109,11 +118,18 @@ static NSString *const identifier = @"cellIdentifier";
     [self.navigationController pushViewController:tableViewVC animated:YES];
 }
 
+- (void)_showCoreNFCVC {
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"该demo暂未完成" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+    [alertVC addAction:confirmAction];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
 #pragma mark - setters && getters
 
 - (NSArray *)dataSource {
     if (!_dataSource) {
-        _dataSource = @[@"UICollectionView-Drag & Drop", @"UITableView-Drag & Drop", @"UIView-Drag & Drop", @"UITableView Swipe手势新特性"];
+        _dataSource = @[@"UICollectionView-Drag & Drop", @"UITableView-Drag & Drop", @"UIView-Drag & Drop 暂未完成", @"UITableView Swipe手势新特性", @"Core NFC 暂未完成"];
     }
     return _dataSource;
 }

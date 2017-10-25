@@ -115,7 +115,7 @@
 				353E1D051FA07F1300B8C291 /* UICollectionView-Drag&Drop */,
 				353E1D0C1FA085D900B8C291 /* UITableView-Drag&Drop */,
 				35D187751F906CBC000F571B /* UIView-Drag&Drop */,
-				35DAC3CA1F8B6B2F00D724CF /* Examples */,
+				35DAC3CA1F8B6B2F00D724CF /* Swipe */,
 				35DAC3B31F8B5C8500D724CF /* AppDelegate.h */,
 				35DAC3B41F8B5C8500D724CF /* AppDelegate.m */,
 				35DAC3B61F8B5C8500D724CF /* ViewController.h */,
@@ -129,13 +129,13 @@
 			path = NewFeature;
 			sourceTree = "<group>";
 		};
-		35DAC3CA1F8B6B2F00D724CF /* Examples */ = {
+		35DAC3CA1F8B6B2F00D724CF /* Swipe */ = {
 			isa = PBXGroup;
 			children = (
 				35DAC3CE1F8B756700D724CF /* WPFSwipeViewController.h */,
 				35DAC3CF1F8B756700D724CF /* WPFSwipeViewController.m */,
 			);
-			path = Examples;
+			path = Swipe;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
