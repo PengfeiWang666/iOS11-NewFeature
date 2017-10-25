@@ -139,26 +139,24 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
     }];
 }
 
-/* Called frequently while the drop session being tracked inside the collection view's coordinate space.
- * When the drop is at the end of a section, the destination index path passed will be for a item that does not yet exist (equal
- * to the number of items in that section), where an inserted item would append to the end of the section.
- * The destination index path may be nil in some circumstances (e.g. when dragging over empty space where there are no cells).
- * Note that in some cases your proposal may not be allowed and the system will enforce a different proposal.
- * You may perform your own hit testing via -[UIDropSession locationInView]
- */
+// 该方法是提供释放方案的方法，虽然是optional，但是最好实现
+// 当 跟踪 drop 行为在 tableView 空间坐标区域内部时会频繁调用
+// 当drop手势在某个section末端的时候，传递的目标索引路径还不存在（此时 indexPath 等于 该 section 的行数），这时候会追加到该section 的末尾
+// 在某些情况下，目标索引路径可能为空（比如拖到一个没有cell的空白区域）
+// 请注意，在某些情况下，你的建议可能不被系统所允许，此时系统将执行不同的建议
+// 你可以通过 -[session locationInView:] 做你自己的命中测试
 - (UICollectionViewDropProposal *)collectionView:(UICollectionView *)collectionView dropSessionDidUpdate:(id<UIDropSession>)session withDestinationIndexPath:(nullable NSIndexPath *)destinationIndexPath {
     
     /**
-      Collection view will accept the drop, but the location is not yet known and will be determined later.
-     * Will not open a gap. You may wish to provide some visual treatment to communicate this to the user.
+      CollectionView将会接收drop，但是具体的位置要稍后才能确定
+      不会开启一个缺口，可以通过添加视觉效果给用户传达这一信息
     UICollectionViewDropIntentUnspecified,
     
-    The drop will be placed in item(s) inserted at the destination index path.
-     * Opens a gap at the specified location simulating the final dropped layout.
+      drop将会被插入到目标索引中
+      将会打开一个缺口，模拟最后释放后的布局
     UICollectionViewDropIntentInsertAtDestinationIndexPath,
     
-     The drop will be placed inside the item at the destination index path (e.g. the item is a container of other items).
-     * Will not open a gap. Collection view will highlight the item at the destination index path.
+     drop 将会释放在目标索引路径，比如该cell是一个容器（集合），此时不会像 👆 那个属性一样打开缺口，但是该条目标索引对应的cell会高亮显示
     UICollectionViewDropIntentInsertIntoDestinationIndexPath,
      */
     UICollectionViewDropProposal *dropProposal;
