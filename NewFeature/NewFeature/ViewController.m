@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-#import "WPFDragViewController.h"
+#import "WPFDragCollectionViewController.h"
+#import "WPFDragTableViewController.h"
 #import "WPFSwipeViewController.h"
 #import "WPFNormalDragViewController.h"
 
@@ -48,7 +49,7 @@ static NSString *const identifier = @"cellIdentifier";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
             case 0:
-            [self _showNormalDragView];
+            [self _showCollectionViewDragView];
             break;
             
             case 1:
@@ -56,6 +57,10 @@ static NSString *const identifier = @"cellIdentifier";
             break;
             
             case 2:
+            [self _showNormalDragView];
+            break;
+            
+            case 3:
             [self _showTableViewFeatureVC];
             break;
             
@@ -84,14 +89,19 @@ static NSString *const identifier = @"cellIdentifier";
     [self.view addSubview:_tableView];
 }
 
+- (void)_showCollectionViewDragView {
+    WPFDragCollectionViewController *collectionDragVC = [[WPFDragCollectionViewController alloc] init];
+    [self.navigationController pushViewController:collectionDragVC animated:YES];
+}
+
 - (void)_showNormalDragView {
-    WPFNormalDragViewController *dragVC = [[WPFNormalDragViewController alloc] init];
-    [self.navigationController pushViewController:dragVC animated:YES];
+    WPFNormalDragViewController *normalDragVC = [[WPFNormalDragViewController alloc] init];
+    [self.navigationController pushViewController:normalDragVC animated:YES];
 }
 
 - (void)_showTableViewDragView {
-    WPFDragViewController *dragVC = [[WPFDragViewController alloc] init];
-    [self.navigationController pushViewController:dragVC animated:YES];
+    WPFDragTableViewController *tableDragVC = [[WPFDragTableViewController alloc] init];
+    [self.navigationController pushViewController:tableDragVC animated:YES];
 }
 
 - (void)_showTableViewFeatureVC {
@@ -103,7 +113,7 @@ static NSString *const identifier = @"cellIdentifier";
 
 - (NSArray *)dataSource {
     if (!_dataSource) {
-        _dataSource = @[@"UIView-Drag & Drop", @"UITableView-Drag & Drop", @"UITableView Swipe手势新特性"];
+        _dataSource = @[@"UICollectionView-Drag & Drop", @"UITableView-Drag & Drop", @"UIView-Drag & Drop", @"UITableView Swipe手势新特性"];
     }
     return _dataSource;
 }

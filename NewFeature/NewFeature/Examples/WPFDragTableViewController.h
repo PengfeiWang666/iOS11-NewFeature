@@ -1,5 +1,5 @@
 //
-//  WPFDragViewController.h
+//  WPFDragTableViewController.h
 //  NewFeature
 //
 //  Created by Leon on 2017/10/9.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WPFDragViewController : UIViewController
+@interface WPFDragTableViewController : UIViewController
 
 @end

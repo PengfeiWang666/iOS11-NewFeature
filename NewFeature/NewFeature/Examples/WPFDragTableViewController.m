@@ -1,5 +1,5 @@
 //
-//  WPFDragViewController.m
+//  WPFDragTableViewController.m
 //  NewFeature
 //
 //  Created by Leon on 2017/10/9.
@@ -15,12 +15,12 @@
  */
 
 
-#import "WPFDragViewController.h"
+#import "WPFDragTableViewController.h"
 #import "WPFImageTableViewCell.h"
 
 static NSString *const identifier = @"kDragCellIdentifier";
 
-@interface WPFDragViewController () <UITableViewDelegate, UITableViewDataSource, UITableViewDragDelegate, UITableViewDropDelegate>
+@interface WPFDragTableViewController () <UITableViewDelegate, UITableViewDataSource, UITableViewDragDelegate, UITableViewDropDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -28,7 +28,7 @@ static NSString *const identifier = @"kDragCellIdentifier";
 
 @end
 
-@implementation WPFDragViewController
+@implementation WPFDragTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -99,8 +99,6 @@ static NSString *const identifier = @"kDragCellIdentifier";
     if (self.dragIndexPath.section == destinationIndexPath.section && self.dragIndexPath.row == destinationIndexPath.row) {
         return;
     }
-
-    
     
     [tableView performBatchUpdates:^{
         // 目标 cell 换位置
@@ -128,7 +126,7 @@ static NSString *const identifier = @"kDragCellIdentifier";
      // 将会打开一个缺口，模拟最后释放后的布局
      UITableViewDropIntentInsertAtDestinationIndexPath,
      
-     drop 将会释放在目标索引路径，比如该cell是一个容器（集合），此时不会像 👆那个属性一样打开缺口，但是该条目标索引对应的cell会高亮显示
+     drop 将会释放在目标索引路径，比如该cell是一个容器（集合），此时不会像 👆 那个属性一样打开缺口，但是该条目标索引对应的cell会高亮显示
      UITableViewDropIntentInsertIntoDestinationIndexPath,
      
      tableView 会根据dro 手势的位置在 .insertAtDestinationIndexPath 和 .insertIntoDestinationIndexPath 自动选择，
