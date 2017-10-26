@@ -4,7 +4,12 @@
 //
 //  Created by Leon on 2017/10/25.
 //  Copyright © 2017年 Leon. All rights reserved.
-//
+//  Placeholder 推迟更新数据源
+
+/* 使用PlaceHolder 注意事项：（app间拖拽的时候，从A app 拖拽到 B app，确定位置之后，B中还未获取到数据，加载数据的过程中展示占位动画）
+ * 1. 不要使用 reloadData，使用 performBatchUpdates: 来替代（因为 reloadData 会重设一切，删除一切 PlaceHolder）
+ * 2. 可以使用 collectionView.hasUncommittedUpdates 来判断当前 CollectionView 是否还存在 PlaceHolder
+ */
 
 #import "WPFDragCollectionViewController.h"
 #import "WPFImageCollectionViewCell.h"
@@ -136,18 +141,34 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
 - (void)collectionView:(UICollectionView *)collectionView performDropWithCoordinator:(id<UICollectionViewDropCoordinator>)coordinator {
     
     NSIndexPath *destinationIndexPath = coordinator.destinationIndexPath;
+    UIDragItem *dragItem = coordinator.items.firstObject.dragItem;
+    UIImage *image = self.dataSource[self.dragIndexPath.row];
     // 如果开始拖拽的 indexPath 和 要释放的目标 indexPath 一致，就不做处理
     if (self.dragIndexPath.section == destinationIndexPath.section && self.dragIndexPath.row == destinationIndexPath.row) {
         return;
     }
     
+    // 更新 CollectionView
     [collectionView performBatchUpdates:^{
         // 目标 cell 换位置
+//        [self.dataSource insertObject:image atIndex:destinationIndexPath.item];
+//        [collectionView insertItemsAtIndexPaths:@[destinationIndexPath]];
+        
         [self.dataSource exchangeObjectAtIndex:destinationIndexPath.item withObjectAtIndex:self.dragIndexPath.item];
         [collectionView moveItemAtIndexPath:self.dragIndexPath toIndexPath:destinationIndexPath];
     } completion:^(BOOL finished) {
         
     }];
+    
+    [coordinator dropItem:dragItem toItemAtIndexPath:destinationIndexPath];
+    
+    
+    // 创建 PlaceHolder
+//    coordinator
+//    coordinator dropItem:<#(nonnull UIDragItem *)#> toPlaceholder:<#(nonnull UICollectionViewDropPlaceholder *)#>
+//    for (id<UICollectionViewDropItem> *item in coordinator.items) {
+//
+//    }
 }
 
 /* 该方法是提供释放方案的方法，虽然是optional，但是最好实现
@@ -174,7 +195,7 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
     UICollectionViewDropProposal *dropProposal;
     // 如果是另外一个app，localDragSession为nil，此时就要执行copy，通过这个属性判断是否是在当前app中释放，当然只有 iPad 才需要这个适配
     if (session.localDragSession) {
-        dropProposal = [[UICollectionViewDropProposal alloc] initWithDropOperation:UIDropOperationMove intent:UICollectionViewDropIntentInsertAtDestinationIndexPath];
+        dropProposal = [[UICollectionViewDropProposal alloc] initWithDropOperation:UIDropOperationCopy intent:UICollectionViewDropIntentInsertAtDestinationIndexPath];
     } else {
         dropProposal = [[UICollectionViewDropProposal alloc] initWithDropOperation:UIDropOperationCopy intent:UICollectionViewDropIntentInsertAtDestinationIndexPath];
     }
