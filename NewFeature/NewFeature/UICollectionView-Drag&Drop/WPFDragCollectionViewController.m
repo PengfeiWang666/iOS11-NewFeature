@@ -151,10 +151,9 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
     // 更新 CollectionView
     [collectionView performBatchUpdates:^{
         // 目标 cell 换位置
-//        [self.dataSource insertObject:image atIndex:destinationIndexPath.item];
-//        [collectionView insertItemsAtIndexPaths:@[destinationIndexPath]];
+        [self.dataSource removeObjectAtIndex:self.dragIndexPath.item];
+        [self.dataSource insertObject:image atIndex:destinationIndexPath.item];
         
-        [self.dataSource exchangeObjectAtIndex:destinationIndexPath.item withObjectAtIndex:self.dragIndexPath.item];
         [collectionView moveItemAtIndexPath:self.dragIndexPath toIndexPath:destinationIndexPath];
     } completion:^(BOOL finished) {
         
