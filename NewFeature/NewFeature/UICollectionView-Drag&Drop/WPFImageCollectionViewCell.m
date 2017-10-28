@@ -23,6 +23,23 @@
     self.targetImageView.frame = self.contentView.bounds;
 }
 
+- (void)dragStateDidChange:(UICollectionViewCellDragState)dragState {
+    [super dragStateDidChange:dragState];
+    
+    // 在该方法监控到最新的拖动状态，可添加自定义外观和行为
+    
+//    UICollectionViewCellDragStateNone,
+    /* The cell is in the "lifting" state.
+     */
+//    UICollectionViewCellDragStateLifting,
+    
+    /* A cell in the "dragging" state is left behind with a
+     * "ghosted" appearance to denote where the drag
+     * started from.
+     */
+//    UICollectionViewCellDragStateDragging
+}
+
 #pragma mark - setters && getters
 - (UIImageView *)targetImageView {
     if (!_targetImageView) {

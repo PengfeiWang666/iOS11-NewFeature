@@ -11,6 +11,12 @@
  * 2. 可以使用 collectionView.hasUncommittedUpdates 来判断当前 CollectionView 是否还存在 PlaceHolder
  */
 
+/* Custorming Cell Appearance：重写 DragStateDidChange 方法可以获取这些状态的改变，可以获取到被传进来的新状态
+ * none      初始状态
+ * lifting   拾取状态，当用户把手指放到cell上，此时cell放大，就是切换到了拾取状态
+ * dragging  拖动状态，当用户移动手指开始拖动的时候进入拖动状态，此时透明度减小
+ */
+
 #import "WPFDragCollectionViewController.h"
 #import "WPFImageCollectionViewCell.h"
 
@@ -60,6 +66,19 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
     _collectionView.dropDelegate = self;
     // 该属性在 iPad 上默认是YES，在 iPhone 默认是 NO
     _collectionView.dragInteractionEnabled = YES;
+    /* 这是 CollectionView 独有的属性，因为 其独有的二维网格的布局，因此在重新排序的过程中有时候会发生元素回流了，有时候只是移动到别的位置，不想要这样的效果，就
+     * Reordering cadence 重排序节奏 可以调节集合视图重排序的响应性，当它打乱顺序并回流其布局时
+     * 默认值是 UICollectionViewReorderingCadenceImmediate. 当开始移动的时候就立即回流集合视图布局，可以理解为实时的重新排序
+     * UICollectionViewReorderingCadenceFast 如果你快速移动，CollectionView 不会立即重新布局，只有在停止移动的时候才会重新布局
+     */
+    _collectionView.reorderingCadence = UICollectionViewReorderingCadenceImmediate;
+    
+    /* 弹簧加载是一种导航和激活控件的方式，在整个系统中，当处于 dragSession 的时候，只要悬浮在cell上面，就会高亮，然后就会激活
+     * UITableView 和 UICollectionView 都可以使用该方式加载，因为他们都遵守 UISpringLoadedInteractionSupporting 协议
+     * 当用户在单元格使用弹性加载时，我们要选择 CollectionView 或tableView 中的 item 或cell
+     * 使用 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSpringLoadItemAtIndexPath:(NSIndexPath *)indexPath withContext:(id<UISpringLoadedInteractionContext>)context API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos); 来自定义也是可以的
+     */
+    _collectionView.springLoaded = YES;
     _collectionView.backgroundColor = [UIColor whiteColor];
 
     [self.view addSubview:_collectionView];
@@ -130,6 +149,8 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
 - (void)collectionView:(UICollectionView *)collectionView dragSessionDidEnd:(id<UIDragSession>)session {
     NSLog(@"dragSessionDidEnd --> drag 会话已经结束");
 }
+
+
 
 #pragma mark - UICollectionViewDropDelegate
 
