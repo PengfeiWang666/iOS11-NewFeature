@@ -8,9 +8,9 @@
 
 #import "WPFNormalDragViewController.h"
 
-@interface WPFNormalDragViewController () <UIDragInteractionDelegate>
+@interface WPFNormalDragViewController () <UIDragInteractionDelegate, UIDropInteractionDelegate>
 
-@property (nonatomic, strong) UIView *dragView;
+@property (nonatomic, strong) UIImageView *dragView;
 
 @end
 
@@ -29,15 +29,17 @@
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     
     [self.view addSubview:self.dragView];
-    self.dragView.frame = CGRectMake(100, 100, 200, 50);
+    self.dragView.frame = CGRectMake(100, 100, 345, 230);
 }
 
-- (void)_addDragInterraction:(UIView *)view {
-    // 想让一个控件可被拖动，首先要给该控件添加 UIDragInteraction 对象
-    UIDragInteraction *interatcion = [[UIDragInteraction alloc] initWithDelegate:self];
-    [view addInteraction:interatcion];
+- (void)_addDragAndDropInterraction:(UIView *)view {
     view.userInteractionEnabled = YES;
+    // 想让一个控件可被拖动，首先要给该控件添加 UIDragInteraction 对象
+    UIDragInteraction *dragInteratcion = [[UIDragInteraction alloc] initWithDelegate:self];
+    [view addInteraction:dragInteratcion];
     
+    UIDropInteraction *dropInteraction = [[UIDropInteraction alloc] initWithDelegate:self];
+    [view addInteraction:dropInteraction];
 }
 
 #pragma mark - UIDragInteractionDelegate
@@ -96,15 +98,20 @@
     
 }
 
+#pragma mark - UIDropInteractionDelegate
 
+- (BOOL)dropInteraction:(UIDropInteraction *)interaction canHandleSession:(id<UIDropSession>)session {
+    // 可以加载image的控件都可以
+    return [session canLoadObjectsOfClass:[UIImage class]];
+}
 
 #pragma mark - Setters & Getters
 
-- (UIView *)dragView {
+- (UIImageView *)dragView {
     if (!_dragView) {
-        _dragView = [[UIView alloc] init];
-        _dragView.backgroundColor = [UIColor cyanColor];
-        [self _addDragInterraction:_dragView];
+        _dragView = [[UIImageView alloc] init];
+        _dragView.image = [UIImage imageNamed:@"thumb26"];
+        [self _addDragAndDropInterraction:_dragView];
     }
     return _dragView;
 }
