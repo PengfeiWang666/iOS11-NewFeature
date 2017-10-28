@@ -26,6 +26,23 @@
 - (void)dragStateDidChange:(UICollectionViewCellDragState)dragState {
     [super dragStateDidChange:dragState];
     
+    switch (dragState) {
+        case UICollectionViewCellDragStateNone:
+            NSLog(@"UICollectionViewCellDragStateNone");
+            break;
+            
+        case UICollectionViewCellDragStateLifting:
+            NSLog(@"UICollectionViewCellDragStateLifting");
+            break;
+            
+        case UICollectionViewCellDragStateDragging:
+            NSLog(@"UICollectionViewCellDragStateDragging");
+            break;
+            
+        default:
+            break;
+    }
+    
     // 在该方法监控到最新的拖动状态，可添加自定义外观和行为
     
 //    UICollectionViewCellDragStateNone,

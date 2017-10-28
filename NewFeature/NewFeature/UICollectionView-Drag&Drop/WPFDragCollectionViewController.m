@@ -4,11 +4,33 @@
 //
 //  Created by Leon on 2017/10/25.
 //  Copyright © 2017年 Leon. All rights reserved.
-//  Placeholder 推迟更新数据源
+//
 
-/* 使用PlaceHolder 注意事项：（app间拖拽的时候，从A app 拖拽到 B app，确定位置之后，B中还未获取到数据，加载数据的过程中展示占位动画）
- * 1. 不要使用 reloadData，使用 performBatchUpdates: 来替代（因为 reloadData 会重设一切，删除一切 PlaceHolder）
- * 2. 可以使用 collectionView.hasUncommittedUpdates 来判断当前 CollectionView 是否还存在 PlaceHolder
+/* Drag 和 Drop 是什么呢？
+ * 一种以图形展现的方式数据从一个 app 移动或拷贝到另一个 app（仅限iPad），或者在程序内部进行
+ * 充分利用了 iOS11 中新的文件系统，只有在请求数据的时候才会去移动数据，而且保证只传输需要的数据
+ * 通过异步的方式进行传输，这样就不会阻塞runloop，从而保证在传输数据的时候用户也有一个顺畅的交互体验
+ * 安全性：
+   * 拖拽复制的过程不像剪切板那样，而是保证数据只对目标app可见
+   * 提供数据源的app可以限制本身的数据源只可在本 app 或者 公司组app 之间有权限使用，当然也可以开放于所有 app，也支持企业用户的管理配置
+ * 需要给用户提供 muti-touch 的使用，这一点也是为了支持企业用户的管理配置（比如一个手指选中一段文字，长按其处于lifting状态，另外一个手指选中若干张图片，然后打开邮件，把文字和图片放进邮件，视觉反馈是及时的，动画效果也很棒）
+ * dragSession 中的几个概念（过程）
+   * Lift ：用户长按 item，item 脱离屏幕
+   * Drag ：用户开始拖拽，此时可进行 自定义视图预览、添加其他item添加内容、悬停进行导航（即iPad 中打开别的app）
+   * Set Down ：此时用户无非想进行两种操作：取消拖拽 或者 在当前手指离开的位置对 item 进行 drop 操作
+   * Data Transfer ：目标app 会向 源app 进行数据请求
+ * 这些都是围绕交互这一概念构造的：即类似手势识别器的概念，接收到用户的操作后，进行view层级的改变
+ */
+// forbiden 比如讲图片放到一个文件夹上，出现这个标志，因为文件夹是只读的
+
+/* Explore the system:看看整个系统都做了什么，传输数据都支持哪些类型
+ */
+
+
+/* 异步加载数据的时候可以用 PlaceHolder 推迟更新数据源，从而保证UI 完全的响应性
+ * 使用PlaceHolder 注意事项：（app间拖拽的时候，从A app 拖拽到 B app，确定位置之后，B中还未获取到数据，加载数据的过程中展示占位动画）
+   * 1. 不要使用 reloadData，使用 performBatchUpdates: 来替代（因为 reloadData 会重设一切，删除一切 PlaceHolder）
+   * 2. 可以使用 collectionView.hasUncommittedUpdates 来判断当前 CollectionView 是否还存在 PlaceHolder
  */
 
 /* Custorming Cell Appearance：重写 DragStateDidChange 方法可以获取这些状态的改变，可以获取到被传进来的新状态
@@ -103,10 +125,11 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
 
 #pragma mark - UICollectionViewDragDelegate
 
-/* 提供一个 给定 indexPath 的可进行 drag 操作的 item
+/* 提供一个 给定 indexPath 的可进行 drag 操作的 item（类似 hitTest: 方法周到该响应的view ）
  * 如果返回 nil，则不会发生任何拖拽事件
  */
 - (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForBeginningDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath {
+    
     
     NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:self.dataSource[indexPath.item]];
     UIDragItem *item = [[UIDragItem alloc] initWithItemProvider:itemProvider];
@@ -129,7 +152,7 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
  * 如果该方法没有实现或者返回nil，那么整个 cell 将用于预览
  */
 - (nullable UIDragPreviewParameters *)collectionView:(UICollectionView *)collectionView dragPreviewParametersForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    // 可以在该方法内使用 贝塞尔曲线 对单元格的一个具体区域进行裁剪
     UIDragPreviewParameters *parameters = [[UIDragPreviewParameters alloc] init];
     
     CGFloat previewLength = self.flowLayout.itemSize.width;

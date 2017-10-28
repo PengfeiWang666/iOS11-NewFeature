@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-            timestampString = "530866854.666655"
+            timestampString = "530873912.23739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "-dragInteraction:itemsForBeginningSession:"
             landmarkType = "7">
          </BreakpointContent>
@@ -52,12 +52,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NewFeature/UICollectionView-Drag&amp;Drop/WPFDragCollectionViewController.m"
-            timestampString = "530866854.666731"
+            timestampString = "530873912.237692"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "188"
             endingLineNumber = "188"
             landmarkName = "-collectionView:performDropWithCoordinator:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
+            timestampString = "530873933.500458"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "-dragInteraction:previewForLiftingItem:session:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
