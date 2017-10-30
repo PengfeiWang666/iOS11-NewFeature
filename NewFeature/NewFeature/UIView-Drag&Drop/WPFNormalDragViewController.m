@@ -29,18 +29,39 @@
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     
     [self.view addSubview:self.dragView];
-    self.dragView.frame = CGRectMake(100, 100, 345, 230);
+    self.dragView.frame = CGRectMake(50, 100, 276, 184);
+    [self _addDragAndDropInterraction:self.dragView];
+//    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_longPressAction:)];
+//    [self.dragView addGestureRecognizer:longPressGesture];
+
 }
 
 - (void)_addDragAndDropInterraction:(UIView *)view {
-    view.userInteractionEnabled = YES;
     // 想让一个控件可被拖动，首先要给该控件添加 UIDragInteraction 对象
     UIDragInteraction *dragInteratcion = [[UIDragInteraction alloc] initWithDelegate:self];
+#warning 一定要添加这个代码！！！
+    dragInteratcion.enabled = YES;
     [view addInteraction:dragInteratcion];
     
     UIDropInteraction *dropInteraction = [[UIDropInteraction alloc] initWithDelegate:self];
+    
     [view addInteraction:dropInteraction];
 }
+
+- (void)_loadImageWithItemProvider:(NSItemProvider *)itemProvider center:(CGPoint)center {
+    [itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImage *image = (UIImage *)object;
+            self.dragView.image = image;
+//            self.dragView.center = center;
+        });
+    }];
+}
+
+- (void)_longPressAction:(UILongPressGestureRecognizer *)recognizer {
+    [self.dragView becomeFirstResponder];
+}
+
 
 #pragma mark - UIDragInteractionDelegate
 
@@ -50,9 +71,10 @@
  */
 - (nonnull NSArray<UIDragItem *> *)dragInteraction:(nonnull UIDragInteraction *)interaction itemsForBeginningSession:(nonnull id<UIDragSession>)session {
     NSLog(@"itemsForBeginningSession");
-    NSItemProvider *provider = [[NSItemProvider alloc] initWithObject:self.dragView];
+    
+    NSItemProvider *provider = [[NSItemProvider alloc] initWithObject:self.dragView.image];
     UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:provider];
-    dragItem.localObject = self.dragView;
+    dragItem.localObject = self.dragView.image;
     return @[dragItem];
 }
 
@@ -62,10 +84,11 @@
  如果没有实现该方法，interaction.view 就会生成一个 UITargetedDragPreview
  */
 - (nullable UITargetedDragPreview *)dragInteraction:(UIDragInteraction *)interaction previewForLiftingItem:(UIDragItem *)item session:(id<UIDragSession>)session {
+    
     NSLog(@"previewForLiftingItem");
     
     UIDragPreviewParameters *previewParameters = [[UIDragPreviewParameters alloc] init];
-    previewParameters.visiblePath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 400, 100) cornerRadius:15];
+    previewParameters.visiblePath = [UIBezierPath bezierPathWithRoundedRect:self.dragView.bounds cornerRadius:10];
     previewParameters.backgroundColor = [UIColor redColor];
     UITargetedDragPreview *dragPreview = [[UITargetedDragPreview alloc] initWithView:interaction.view parameters:previewParameters];
     return dragPreview;
@@ -79,8 +102,10 @@
 // 当 lift 动画准备执行的时候会调用该方法，可以在这个方法里面对拖动的 item 添加动画
 - (void)dragInteraction:(UIDragInteraction *)interaction willAnimateLiftWithAnimator:(id<UIDragAnimating>)animator session:(id<UIDragSession>)session {
     NSLog(@"willAnimateLiftWithAnimator:session:");
-    [animator addAnimations:^{
-        
+    [animator addCompletion:^(UIViewAnimatingPosition finalPosition) {
+        if (finalPosition == UIViewAnimatingPositionEnd) {
+            self.dragView.alpha = 0.6;
+        }
     }];
 }
 
@@ -102,7 +127,61 @@
 
 - (BOOL)dropInteraction:(UIDropInteraction *)interaction canHandleSession:(id<UIDropSession>)session {
     // 可以加载image的控件都可以
+    return YES;
     return [session canLoadObjectsOfClass:[UIImage class]];
+}
+
+- (UIDropProposal *)dropInteraction:(UIDropInteraction *)interaction sessionDidUpdate:(id<UIDropSession>)session {
+    
+    CGPoint dropLocation = [session locationInView:self.view];
+    self.dragView.center = dropLocation;
+    
+
+    
+    
+    
+    
+    
+    
+    
+    // 如果 session.localDragSession 为nil，说明这一操作源自另外一个app，
+    UIDropOperation dropOperation = session.localDragSession ? UIDropOperationMove : UIDropOperationCopy;
+
+    UIDropProposal *dropProposal = [[UIDropProposal alloc] initWithDropOperation:dropOperation];
+    return dropProposal;
+}
+
+- (void)dropInteraction:(UIDropInteraction *)interaction performDrop:(id<UIDropSession>)session {
+    // 同样的，在这个方法内部也要判断是否源自本app
+    if (!session.localDragSession) {
+        CGPoint dropPoint = [session locationInView:interaction.view];
+        for (UIDragItem *item in session.items) {
+            [self _loadImageWithItemProvider:item.itemProvider center:dropPoint];
+        }
+    }
+}
+
+- (UITargetedDragPreview *)dropInteraction:(UIDropInteraction *)interaction previewForDroppingItem:(UIDragItem *)item withDefault:(UITargetedDragPreview *)defaultPreview {
+    if (item.localObject) {
+        CGPoint dropPoint = defaultPreview.view.center;
+        UIDragPreviewTarget *previewTarget = [[UIDragPreviewTarget alloc] initWithContainer:_dragView center:dropPoint];
+        return [defaultPreview retargetedPreviewWithTarget:previewTarget];
+    } else {
+        return nil;
+    }
+}
+
+// 产生本地动画
+- (void)dropInteraction:(UIDropInteraction *)interaction item:(UIDragItem *)item willAnimateDropWithAnimator:(id<UIDragAnimating>)animator {
+    
+    [animator addAnimations:^{
+        _dragView.alpha = 0;
+    }];
+    
+    [animator addCompletion:^(UIViewAnimatingPosition finalPosition) {
+        _dragView.alpha = 1;
+    }];
+    
 }
 
 #pragma mark - Setters & Getters
@@ -110,12 +189,13 @@
 - (UIImageView *)dragView {
     if (!_dragView) {
         _dragView = [[UIImageView alloc] init];
-        _dragView.image = [UIImage imageNamed:@"thumb26"];
-        [self _addDragAndDropInterraction:_dragView];
+        _dragView.image = [UIImage imageNamed:@"image5"];
+        _dragView.layer.cornerRadius = 10;
+        _dragView.layer.masksToBounds = YES;
+        _dragView.userInteractionEnabled = YES;
     }
     return _dragView;
 }
-
 
 
 @end

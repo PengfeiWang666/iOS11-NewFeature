@@ -130,7 +130,6 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
  */
 - (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForBeginningDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath {
     
-    
     NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:self.dataSource[indexPath.item]];
     UIDragItem *item = [[UIDragItem alloc] initWithItemProvider:itemProvider];
     self.dragIndexPath = indexPath;

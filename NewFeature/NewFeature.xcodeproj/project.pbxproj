@@ -11,7 +11,6 @@
 		353E1D0B1FA085AE00B8C291 /* WPFImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 353E1D0A1FA085AE00B8C291 /* WPFImageCollectionViewCell.m */; };
 		35D187711F8F9C2B000F571B /* WPFImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D187701F8F9C2B000F571B /* WPFImageTableViewCell.m */; };
 		35D187741F90598D000F571B /* WPFNormalDragViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D187731F90598D000F571B /* WPFNormalDragViewController.m */; };
-		35D187781F906EFD000F571B /* WPFWriteObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D187771F906EFD000F571B /* WPFWriteObject.m */; };
 		35DAC3B51F8B5C8500D724CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC3B41F8B5C8500D724CF /* AppDelegate.m */; };
 		35DAC3B81F8B5C8500D724CF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC3B71F8B5C8500D724CF /* ViewController.m */; };
 		35DAC3BB1F8B5C8500D724CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35DAC3B91F8B5C8500D724CF /* Main.storyboard */; };
@@ -31,8 +30,6 @@
 		35D187701F8F9C2B000F571B /* WPFImageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPFImageTableViewCell.m; sourceTree = "<group>"; };
 		35D187721F90598D000F571B /* WPFNormalDragViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPFNormalDragViewController.h; sourceTree = "<group>"; };
 		35D187731F90598D000F571B /* WPFNormalDragViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPFNormalDragViewController.m; sourceTree = "<group>"; };
-		35D187761F906EFD000F571B /* WPFWriteObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPFWriteObject.h; sourceTree = "<group>"; };
-		35D187771F906EFD000F571B /* WPFWriteObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPFWriteObject.m; sourceTree = "<group>"; };
 		35DAC3B01F8B5C8500D724CF /* NewFeature.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewFeature.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35DAC3B31F8B5C8500D724CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		35DAC3B41F8B5C8500D724CF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -87,8 +84,6 @@
 			children = (
 				35D187721F90598D000F571B /* WPFNormalDragViewController.h */,
 				35D187731F90598D000F571B /* WPFNormalDragViewController.m */,
-				35D187761F906EFD000F571B /* WPFWriteObject.h */,
-				35D187771F906EFD000F571B /* WPFWriteObject.m */,
 			);
 			path = "UIView-Drag&Drop";
 			sourceTree = "<group>";
@@ -212,7 +207,6 @@
 			files = (
 				35DAC3CD1F8B6B5F00D724CF /* WPFDragTableViewController.m in Sources */,
 				35DAC3B81F8B5C8500D724CF /* ViewController.m in Sources */,
-				35D187781F906EFD000F571B /* WPFWriteObject.m in Sources */,
 				35DAC3C31F8B5C8500D724CF /* main.m in Sources */,
 				353E1D0B1FA085AE00B8C291 /* WPFImageCollectionViewCell.m in Sources */,
 				35D187711F8F9C2B000F571B /* WPFImageTableViewCell.m in Sources */,
