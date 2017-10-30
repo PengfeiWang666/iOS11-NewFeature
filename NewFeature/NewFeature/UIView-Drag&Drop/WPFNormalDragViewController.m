@@ -31,6 +31,8 @@
     [self.view addSubview:self.dragView];
     self.dragView.frame = CGRectMake(50, 100, 276, 184);
     [self _addDragAndDropInterraction:self.dragView];
+    [self.view becomeFirstResponder];
+    self.view.userInteractionEnabled = YES;
 }
 
 - (void)_addDragAndDropInterraction:(UIView *)view {
@@ -41,7 +43,7 @@
     [view addInteraction:dragInteratcion];
     
     UIDropInteraction *dropInteraction = [[UIDropInteraction alloc] initWithDelegate:self];
-    
+//    dropInteraction.allowsSimultaneousDropSessions = YES;
     [view addInteraction:dropInteraction];
 }
 
@@ -51,7 +53,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             UIImage *image = (UIImage *)object;
             self.dragView.image = image;
-//            self.dragView.center = center;
+            self.dragView.center = center;
         });
     }];
 }
@@ -82,7 +84,6 @@
     
     UIDragPreviewParameters *previewParameters = [[UIDragPreviewParameters alloc] init];
     previewParameters.visiblePath = [UIBezierPath bezierPathWithRoundedRect:self.dragView.bounds cornerRadius:10];
-    previewParameters.backgroundColor = [UIColor redColor];
     UITargetedDragPreview *dragPreview = [[UITargetedDragPreview alloc] initWithView:interaction.view parameters:previewParameters];
     return dragPreview;
 }
@@ -106,7 +107,7 @@
 - (void)dragInteraction:(UIDragInteraction *)interaction item:(UIDragItem *)item willAnimateCancelWithAnimator:(id<UIDragAnimating>)animator {
     NSLog(@"item:willAnimateCancelWithAnimator:");
     [animator addAnimations:^{
-        
+        self.dragView.alpha = 1;
     }];
 }
 
@@ -114,13 +115,36 @@
 - (void)dragInteraction:(UIDragInteraction *)interaction session:(id<UIDragSession>)session didEndWithOperation:(UIDropOperation)operation {
     NSLog(@"session:didEndWithOperation:");
     
+    [UIView animateWithDuration:0.25 animations:^{
+//        self.dragView.center = [session locationInView:self.view];
+        self.dragView.alpha = 1;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (nullable UITargetedDragPreview *)dragInteraction:(UIDragInteraction *)interaction previewForCancellingItem:(UIDragItem *)item withDefault:(UITargetedDragPreview *)defaultPreview {
+    NSLog(@"previewForCancellingItem");
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, interaction.view.bounds.size.width, interaction.view.bounds.size.height)];
+    imageView.image = self.dragView.image;
+    
+    UIDragPreviewTarget *previewTarget = [[UIDragPreviewTarget alloc] initWithContainer:interaction.view center:CGPointMake(interaction.view.bounds.size.width / 2, interaction.view.bounds.size.height / 2)];
+    
+    UITargetedDragPreview *dragPreview = [[UITargetedDragPreview alloc] initWithView:imageView parameters:[UIDragPreviewParameters new] target:previewTarget];
+    return dragPreview;
 }
 
 #pragma mark - UIDropInteractionDelegate
 
 - (BOOL)dropInteraction:(UIDropInteraction *)interaction canHandleSession:(id<UIDropSession>)session {
     // 可以加载image的控件都可以
+    return YES;
     return [session canLoadObjectsOfClass:[UIImage class]];
+}
+
+- (void)dropInteraction:(UIDropInteraction *)interaction sessionDidEnter:(id<UIDropSession>)session {
+    NSLog(@"sessionDidEnter");
 }
 
 - (UIDropProposal *)dropInteraction:(UIDropInteraction *)interaction sessionDidUpdate:(id<UIDropSession>)session {
@@ -133,9 +157,11 @@
 }
 
 - (void)dropInteraction:(UIDropInteraction *)interaction performDrop:(id<UIDropSession>)session {
+    NSLog(@"performDrop");
     // 同样的，在这个方法内部也要判断是否源自本app
-    if (!session.localDragSession) {
-        CGPoint dropPoint = [session locationInView:interaction.view];
+    if (session.localDragSession) {
+//        CGPoint dropPoint = [session locationInView:interaction.view];
+        CGPoint dropPoint = [session locationInView:self.view];
         for (UIDragItem *item in session.items) {
             [self _loadImageWithItemProvider:item.itemProvider center:dropPoint];
         }
@@ -143,6 +169,7 @@
 }
 
 - (UITargetedDragPreview *)dropInteraction:(UIDropInteraction *)interaction previewForDroppingItem:(UIDragItem *)item withDefault:(UITargetedDragPreview *)defaultPreview {
+    NSLog(@"previewForDroppingItem");
     if (item.localObject) {
         CGPoint dropPoint = defaultPreview.view.center;
         UIDragPreviewTarget *previewTarget = [[UIDragPreviewTarget alloc] initWithContainer:_dragView center:dropPoint];
@@ -162,7 +189,6 @@
     [animator addCompletion:^(UIViewAnimatingPosition finalPosition) {
         _dragView.alpha = 1;
     }];
-    
 }
 
 #pragma mark - Setters & Getters
