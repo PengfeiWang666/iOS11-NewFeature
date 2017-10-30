@@ -105,8 +105,8 @@ static NSString *const identifier = @"kDragCellIdentifier";
         id obj = self.dataSource[self.dragIndexPath.row];
         [self.dataSource removeObjectAtIndex:self.dragIndexPath.row];
         [self.dataSource insertObject:obj atIndex:destinationIndexPath.row];
-        
-        [tableView moveRowAtIndexPath:self.dragIndexPath toIndexPath:destinationIndexPath];
+        [tableView deleteRowsAtIndexPaths:@[self.dragIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView insertRowsAtIndexPaths:@[destinationIndexPath] withRowAnimation:UITableViewRowAnimationFade];
     } completion:^(BOOL finished) {
         
     }];

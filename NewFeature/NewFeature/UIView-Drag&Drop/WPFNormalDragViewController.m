@@ -31,9 +31,6 @@
     [self.view addSubview:self.dragView];
     self.dragView.frame = CGRectMake(50, 100, 276, 184);
     [self _addDragAndDropInterraction:self.dragView];
-//    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_longPressAction:)];
-//    [self.dragView addGestureRecognizer:longPressGesture];
-
 }
 
 - (void)_addDragAndDropInterraction:(UIView *)view {
@@ -57,11 +54,6 @@
         });
     }];
 }
-
-- (void)_longPressAction:(UILongPressGestureRecognizer *)recognizer {
-    [self.dragView becomeFirstResponder];
-}
-
 
 #pragma mark - UIDragInteractionDelegate
 
@@ -127,7 +119,6 @@
 
 - (BOOL)dropInteraction:(UIDropInteraction *)interaction canHandleSession:(id<UIDropSession>)session {
     // 可以加载image的控件都可以
-    return YES;
     return [session canLoadObjectsOfClass:[UIImage class]];
 }
 
