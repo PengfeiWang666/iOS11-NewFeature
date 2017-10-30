@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     [self _setupUI];
 }
 
@@ -46,6 +46,7 @@
 }
 
 - (void)_loadImageWithItemProvider:(NSItemProvider *)itemProvider center:(CGPoint)center {
+    NSLog(@"_loadImageWithItemProvider:center:");
     [itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIImage *image = (UIImage *)object;
@@ -123,17 +124,6 @@
 }
 
 - (UIDropProposal *)dropInteraction:(UIDropInteraction *)interaction sessionDidUpdate:(id<UIDropSession>)session {
-    
-    CGPoint dropLocation = [session locationInView:self.view];
-    self.dragView.center = dropLocation;
-    
-
-    
-    
-    
-    
-    
-    
     
     // 如果 session.localDragSession 为nil，说明这一操作源自另外一个app，
     UIDropOperation dropOperation = session.localDragSession ? UIDropOperationMove : UIDropOperationCopy;
