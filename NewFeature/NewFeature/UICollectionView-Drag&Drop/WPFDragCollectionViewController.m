@@ -136,16 +136,15 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
     return @[item];
 }
 
-/* Called to request items to add to an existing drag session in response to the add item gesture.
- * You can use the provided point (in the collection view's coordinate space) to do additional hit testing if desired.
- * If not implemented, or if an empty array is returned, no items will be added to the drag and the gesture
- * will be handled normally.
+/* 当接收到添加item响应时，会调用该方法向已经存在的drag会话中添加item
+ * 如果需要，可以使用提供的点（在集合视图的坐标空间中）进行其他命中测试。
+ * 如果该方法未实现，或返回空数组，则不会将任何 item 添加到拖动，手势也会正常的响应
  */
-//- (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForAddingToDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
-//    NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:self.dataSource[indexPath.item]];
-//    UIDragItem *item = [[UIDragItem alloc] initWithItemProvider:itemProvider];
-//    return @[item];
-//}
+- (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForAddingToDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+    NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:self.dataSource[indexPath.item]];
+    UIDragItem *item = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+    return @[item];
+}
 
 /* 允许对从取消或返回到 CollectionView 的 item 使用自定义预览
  * 如果该方法没有实现或者返回nil，那么整个 cell 将用于预览
