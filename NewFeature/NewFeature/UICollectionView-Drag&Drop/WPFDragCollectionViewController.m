@@ -82,7 +82,7 @@ static NSString *kItemForTypeIdentifier = @"kItemForTypeIdentifier";
     self.flowLayout = flowLayout;
     
     _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
-    [_collectionView registerClass:[WPFImageCollectionViewCell class] forCellWithReuseIdentifier:imageCellIdentifier];
+    [_collectionView registerClass:[WPFImageCollectionViewCell class] forCellWithReuseIdentifier:kImageCellIdentifier];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.dragDelegate = self;
