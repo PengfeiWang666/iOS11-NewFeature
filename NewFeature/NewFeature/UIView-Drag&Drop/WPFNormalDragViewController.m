@@ -49,13 +49,21 @@
 
 - (void)_loadImageWithItemProvider:(NSItemProvider *)itemProvider center:(CGPoint)center {
     NSLog(@"_loadImageWithItemProvider:center:");
-    [itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIImage *image = (UIImage *)object;
-            self.dragView.image = image;
-            self.dragView.center = center;
-        });
+    // 该方法用于取出数据
+    NSProgress *progress = [itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
+        // 回调的代码块默认就在主线程
+        UIImage *image = (UIImage *)object;
+        self.dragView.image = image;
+        self.dragView.center = center;
+        
     }];
+    // 是否完成
+    BOOL isFinished = progress.isFinished;
+    // 当前已完成进度
+    CGFloat progressSoFar = progress.fractionCompleted;
+    
+    [progress cancel];
+    
 }
 
 #pragma mark - UIDragInteractionDelegate
@@ -66,7 +74,7 @@
  */
 - (nonnull NSArray<UIDragItem *> *)dragInteraction:(nonnull UIDragInteraction *)interaction itemsForBeginningSession:(nonnull id<UIDragSession>)session {
     NSLog(@"itemsForBeginningSession");
-    
+    // 该方法进行提供数据
     NSItemProvider *provider = [[NSItemProvider alloc] initWithObject:self.dragView.image];
     UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:provider];
     dragItem.localObject = self.dragView.image;
@@ -139,8 +147,8 @@
 
 - (BOOL)dropInteraction:(UIDropInteraction *)interaction canHandleSession:(id<UIDropSession>)session {
     // 可以加载image的控件都可以
-    return YES;
     return [session canLoadObjectsOfClass:[UIImage class]];
+    
 }
 
 - (void)dropInteraction:(UIDropInteraction *)interaction sessionDidEnter:(id<UIDropSession>)session {

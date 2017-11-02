@@ -42,7 +42,8 @@
 #import "WPFDragCollectionViewController.h"
 #import "WPFImageCollectionViewCell.h"
 
-static NSString *imageCellIdentifier = @"imageCellIdentifier";
+static NSString *kImageCellIdentifier = @"kImageCellIdentifier";
+static NSString *kItemForTypeIdentifier = @"kItemForTypeIdentifier";
 
 @interface WPFDragCollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 
@@ -113,7 +114,7 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WPFImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:imageCellIdentifier forIndexPath:indexPath];
+    WPFImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kImageCellIdentifier forIndexPath:indexPath];
     
     cell.targetImageView.image = self.dataSource[indexPath.item];
     
@@ -131,6 +132,15 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
 - (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForBeginningDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath {
     
     NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:self.dataSource[indexPath.item]];
+//    itemProvider.preferredPresentationSize
+//    session.progressIndicatorStyle = UIDropSessionProgressIndicatorStyleNone;
+    
+    [itemProvider registerItemForTypeIdentifier:kItemForTypeIdentifier loadHandler:^(NSItemProviderCompletionHandler  _Null_unspecified completionHandler, Class  _Null_unspecified __unsafe_unretained expectedValueClass, NSDictionary * _Null_unspecified options) {
+        
+    }];
+    
+//    itemProvider registerDataRepresentationForTypeIdentifier:<#(nonnull NSString *)#> visibility:<#(NSItemProviderRepresentationVisibility)#> loadHandler:<#^NSProgress * _Nullable(void (^ _Nonnull completionHandler)(NSData * _Nullable, NSError * _Nullable))loadHandler#>
+    
     UIDragItem *item = [[UIDragItem alloc] initWithItemProvider:itemProvider];
     self.dragIndexPath = indexPath;
     return @[item];
@@ -147,6 +157,7 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
 }
 
 /* 允许对从取消或返回到 CollectionView 的 item 使用自定义预览
+ * UIDragPreviewParameters 有两个属性：visiblePath 和 backgroundColor
  * 如果该方法没有实现或者返回nil，那么整个 cell 将用于预览
  */
 - (nullable UIDragPreviewParameters *)collectionView:(UICollectionView *)collectionView dragPreviewParametersForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -156,6 +167,7 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
     CGFloat previewLength = self.flowLayout.itemSize.width;
     CGRect rect = CGRectMake(0, 0, previewLength, previewLength);
     parameters.visiblePath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:5];
+    parameters.backgroundColor = [UIColor clearColor];
     return parameters;
 }
 
@@ -185,6 +197,15 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
     NSIndexPath *destinationIndexPath = coordinator.destinationIndexPath;
     UIDragItem *dragItem = coordinator.items.firstObject.dragItem;
     UIImage *image = self.dataSource[self.dragIndexPath.row];
+    
+    // 正常的加载数据的方法
+    if ([dragItem.itemProvider canLoadObjectOfClass:[UIImage class]]) {
+        [dragItem.itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
+            // 回调在非主线程
+            UIImage *image = (UIImage *)object;
+        }];
+    }
+
     // 如果开始拖拽的 indexPath 和 要释放的目标 indexPath 一致，就不做处理
     if (self.dragIndexPath.section == destinationIndexPath.section && self.dragIndexPath.row == destinationIndexPath.row) {
         return;
@@ -204,12 +225,22 @@ static NSString *imageCellIdentifier = @"imageCellIdentifier";
     [coordinator dropItem:dragItem toItemAtIndexPath:destinationIndexPath];
     
     
+    
     // 创建 PlaceHolder
 //    coordinator
-//    coordinator dropItem:<#(nonnull UIDragItem *)#> toPlaceholder:<#(nonnull UICollectionViewDropPlaceholder *)#>
-//    for (id<UICollectionViewDropItem> *item in coordinator.items) {
-//
-//    }
+    /* Animate the dragItem to an automatically inserted placeholder item.
+     *
+     * A placeholder cell will be created for the reuse identifier and inserted at the specified indexPath without requiring a dataSource update.
+     *
+     * The cellUpdateHandler will be called whenever the placeholder cell becomes visible; -collectionView:cellForItemAtIndexPath: will not be called
+     * for the placeholder.
+     *
+     * Once the dragItem data is available, you can exchange the temporary placeholder cell with the final cell using
+     * the placeholder context method -commitInsertionWithDataSourceUpdates:
+     *
+     * UICollectionViewDropPlaceholderContext also conforms to UIDragAnimating to allow adding alongside animations and completion handlers.
+     */
+//    - (id<UICollectionViewDropPlaceholderContext>)dropItem:(UIDragItem *)dragItem toPlaceholder:(UICollectionViewDropPlaceholder*)placeholder;
 }
 
 /* 该方法是提供释放方案的方法，虽然是optional，但是最好实现

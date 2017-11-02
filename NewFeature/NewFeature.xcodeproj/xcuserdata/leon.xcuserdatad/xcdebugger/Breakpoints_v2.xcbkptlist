@@ -35,28 +35,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NewFeature/UICollectionView-Drag&amp;Drop/WPFDragCollectionViewController.m"
-            timestampString = "531147987.343016"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "-collectionView:performDropWithCoordinator:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-            timestampString = "531056781.571292"
+            timestampString = "531288933.91149"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "-_loadImageWithItemProvider:center:"
             landmarkType = "7">
          </BreakpointContent>
@@ -68,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-            timestampString = "531056781.571362"
+            timestampString = "531288933.911569"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "-_loadImageWithItemProvider:center:"
             landmarkType = "7">
             <Locations>
@@ -84,12 +68,12 @@
                   moduleName = "NewFeature"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/leon/iOS11-NewFeature/NewFeature/NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-                  timestampString = "531147987.559599"
+                  timestampString = "531288748.388352"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "84">
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "73">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -99,12 +83,12 @@
                   moduleName = "NewFeature"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/leon/iOS11-NewFeature/NewFeature/NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-                  timestampString = "531147987.56117"
+                  timestampString = "531288748.391294"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "24">
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -116,12 +100,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-            timestampString = "531056781.571428"
+            timestampString = "531288933.911625"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
-            landmarkName = "-dropInteraction:previewForDroppingItem:withDefault:"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
+            landmarkName = "-dropInteraction:performDrop:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -132,13 +116,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-            timestampString = "531056781.571494"
+            timestampString = "531288933.91168"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "-dropInteraction:item:willAnimateDropWithAnimator:"
-            landmarkType = "7">
+            startingLineNumber = "193"
+            endingLineNumber = "193"
+            landmarkName = "WPFNormalDragViewController"
+            landmarkType = "3">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
@@ -148,12 +132,12 @@
                   moduleName = "NewFeature"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/leon/iOS11-NewFeature/NewFeature/NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-                  timestampString = "531147987.575436"
+                  timestampString = "531288748.421239"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "185"
-                  endingLineNumber = "185"
-                  offsetFromSymbolStart = "132">
+                  startingLineNumber = "193"
+                  endingLineNumber = "193"
+                  offsetFromSymbolStart = "129">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -163,12 +147,12 @@
                   moduleName = "NewFeature"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/leon/iOS11-NewFeature/NewFeature/NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-                  timestampString = "531147987.576936"
+                  timestampString = "531288748.422958"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "185"
-                  endingLineNumber = "185"
-                  offsetFromSymbolStart = "36">
+                  startingLineNumber = "193"
+                  endingLineNumber = "193"
+                  offsetFromSymbolStart = "15">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -180,11 +164,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-            timestampString = "531056781.571559"
+            timestampString = "531288933.91173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "-dropInteraction:performDrop:"
             landmarkType = "7">
          </BreakpointContent>
@@ -196,44 +180,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-            timestampString = "531056781.57162"
+            timestampString = "531288933.911778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "-dropInteraction:performDrop:"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "-dropInteraction:sessionDidUpdate:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NewFeature/UICollectionView-Drag&amp;Drop/WPFDragCollectionViewController.m"
-            timestampString = "531148061.868023"
+            timestampString = "531288933.911837"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
             landmarkName = "-collectionView:dropSessionDidUpdate:withDestinationIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NewFeature/UICollectionView-Drag&amp;Drop/WPFDragCollectionViewController.m"
-            timestampString = "531148064.027513"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
-            landmarkName = "-collectionView:canHandleDropSession:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
