@@ -11,6 +11,7 @@
 #import "WPFDragTableViewController.h"
 #import "WPFSwipeViewController.h"
 #import "WPFNormalDragViewController.h"
+#import "WPFStoreReviewController.h"
 
 static NSString *const identifier = @"cellIdentifier";
 
@@ -25,8 +26,6 @@ static NSString *const identifier = @"cellIdentifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor redColor];
     
     [self _setupNav];
     [self _setupTableView];
@@ -65,6 +64,10 @@ static NSString *const identifier = @"cellIdentifier";
             break;
             
             case 4:
+            [self _showStoreRequestView];
+            break;
+            
+            case 5:
             [self _showCoreNFCVC];
             break;
             
@@ -114,6 +117,11 @@ static NSString *const identifier = @"cellIdentifier";
     [self.navigationController pushViewController:tableViewVC animated:YES];
 }
 
+- (void)_showStoreRequestView {
+    WPFStoreReviewController *storeVC = [[WPFStoreReviewController alloc] init];
+    [self.navigationController pushViewController:storeVC animated:YES];
+}
+
 - (void)_showCoreNFCVC {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"该demo暂未完成" message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
@@ -125,7 +133,7 @@ static NSString *const identifier = @"cellIdentifier";
 
 - (NSArray *)dataSource {
     if (!_dataSource) {
-        _dataSource = @[@"UICollectionView-Drag & Drop", @"UITableView-Drag & Drop", @"UIView-Drag & Drop", @"UITableView Swipe手势新特性", @"Core NFC 暂未完成"];
+        _dataSource = @[@"UICollectionView-Drag & Drop", @"UITableView-Drag & Drop", @"UIView-Drag & Drop", @"UITableView Swipe手势新特性", @"快速评价-10.3新特性", @"更换 App 头像-10.3新特性", @"Core NFC 暂未完成"];
     }
     return _dataSource;
 }
