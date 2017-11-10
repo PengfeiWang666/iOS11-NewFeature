@@ -12,6 +12,7 @@
 #import "WPFSwipeViewController.h"
 #import "WPFNormalDragViewController.h"
 #import "WPFStoreReviewController.h"
+#import "WPFFeatureModel.h"
 
 static NSString *const identifier = @"cellIdentifier";
 
@@ -32,13 +33,28 @@ static NSString *const identifier = @"cellIdentifier";
 }
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataSource.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return @"iOS11 新特性";
+    } else {
+        return @"iOS10.3 新特性";
+    }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSArray *sectionArray = self.dataSource[section];
+    return sectionArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    cell.textLabel.text = self.dataSource[indexPath.row];
+    WPFFeatureModel *model = self.dataSource[indexPath.section][indexPath.row];
+    cell.textLabel.text = model.titleString;
     
     return cell;
 }
@@ -46,34 +62,13 @@ static NSString *const identifier = @"cellIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    switch (indexPath.row) {
-            case 0:
-            [self _showCollectionViewDragView];
-            break;
-            
-            case 1:
-            [self _showTableViewDragView];
-            break;
-            
-            case 2:
-            [self _showNormalDragView];
-            break;
-            
-            case 3:
-            [self _showTableViewFeatureVC];
-            break;
-            
-            case 4:
-            [self _showStoreRequestView];
-            break;
-            
-            case 5:
-            [self _showCoreNFCVC];
-            break;
-            
-        default:
-            break;
-    }
+    
+    WPFFeatureModel *featureModel = self.dataSource[indexPath.section][indexPath.row];
+    // 避免产生警告"performSelector may cause a leak because its selector is unknown"
+    SEL selector = NSSelectorFromString(featureModel.selectorString);
+    IMP method = [self methodForSelector:selector];
+    void (*func)(id, SEL) = (void *)method;
+    func(self, selector);
 }
 
 #pragma mark - Private Method
@@ -88,7 +83,7 @@ static NSString *const identifier = @"cellIdentifier";
 }
 
 - (void)_setupTableView {
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
     _tableView.rowHeight = 60;
     _tableView.delegate = self;
@@ -133,7 +128,16 @@ static NSString *const identifier = @"cellIdentifier";
 
 - (NSArray *)dataSource {
     if (!_dataSource) {
-        _dataSource = @[@"UICollectionView-Drag & Drop", @"UITableView-Drag & Drop", @"UIView-Drag & Drop", @"UITableView Swipe手势新特性", @"快速评价-10.3新特性", @"更换 App 头像-10.3新特性", @"Core NFC 暂未完成"];
+        WPFFeatureModel *model1 = [WPFFeatureModel featureWithTitleString:@"UICollectionView-Drag & Drop" selectorString:NSStringFromSelector(@selector(_showCollectionViewDragView))];
+        WPFFeatureModel *model2 = [WPFFeatureModel featureWithTitleString:@"UITableView-Drag & Drop" selectorString:NSStringFromSelector(@selector(_showTableViewDragView))];
+        WPFFeatureModel *model3 = [WPFFeatureModel featureWithTitleString:@"UIView-Drag & Drop" selectorString:NSStringFromSelector(@selector(_showNormalDragView))];
+        WPFFeatureModel *model4 = [WPFFeatureModel featureWithTitleString:@"UITableView Swipe手势新特性" selectorString:NSStringFromSelector(@selector(_showTableViewFeatureVC))];
+        WPFFeatureModel *model5 = [WPFFeatureModel featureWithTitleString:@"Core NFC 暂未完成" selectorString:NSStringFromSelector(@selector(_showCoreNFCVC))];
+        WPFFeatureModel *model6 = [WPFFeatureModel featureWithTitleString:@"快速评价" selectorString:NSStringFromSelector(@selector(_showStoreRequestView))];
+        WPFFeatureModel *model7 = [WPFFeatureModel featureWithTitleString:@"更换 App 头像-暂未完成" selectorString:NSStringFromSelector(@selector(_showCollectionViewDragView))];
+        
+        
+        _dataSource = @[@[model1, model2, model3, model4, model5], @[model6, model7]];
     }
     return _dataSource;
 }
