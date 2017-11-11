@@ -13,6 +13,7 @@
 #import "WPFNormalDragViewController.h"
 #import "WPFStoreReviewController.h"
 #import "WPFFeatureModel.h"
+#import "WPFChangeAppIconViewController.h"
 
 static NSString *const identifier = @"cellIdentifier";
 
@@ -91,18 +92,18 @@ static NSString *const identifier = @"cellIdentifier";
     [self.view addSubview:_tableView];
 }
 
-- (void)_showCollectionViewDragView {
+- (void)_showCollectionViewDragVC {
     WPFDragCollectionViewController *collectionDragVC = [[WPFDragCollectionViewController alloc] init];
     [self.navigationController pushViewController:collectionDragVC animated:YES];
 }
 
-- (void)_showNormalDragView {
+- (void)_showNormalDragVC {
     
     WPFNormalDragViewController *normalDragVC = [[WPFNormalDragViewController alloc] init];
     [self.navigationController pushViewController:normalDragVC animated:YES];
 }
 
-- (void)_showTableViewDragView {
+- (void)_showTableViewDragVC {
     WPFDragTableViewController *tableDragVC = [[WPFDragTableViewController alloc] init];
     [self.navigationController pushViewController:tableDragVC animated:YES];
 }
@@ -124,18 +125,22 @@ static NSString *const identifier = @"cellIdentifier";
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 
+- (void)_showChangeAPPIconVC {
+    WPFChangeAppIconViewController *changeIconVC = [[WPFChangeAppIconViewController alloc] init];
+    [self.navigationController pushViewController:changeIconVC animated:YES];
+}
+
 #pragma mark - setters && getters
 
 - (NSArray *)dataSource {
     if (!_dataSource) {
-        WPFFeatureModel *model1 = [WPFFeatureModel featureWithTitleString:@"UICollectionView-Drag & Drop" selectorString:NSStringFromSelector(@selector(_showCollectionViewDragView))];
-        WPFFeatureModel *model2 = [WPFFeatureModel featureWithTitleString:@"UITableView-Drag & Drop" selectorString:NSStringFromSelector(@selector(_showTableViewDragView))];
-        WPFFeatureModel *model3 = [WPFFeatureModel featureWithTitleString:@"UIView-Drag & Drop" selectorString:NSStringFromSelector(@selector(_showNormalDragView))];
+        WPFFeatureModel *model1 = [WPFFeatureModel featureWithTitleString:@"UICollectionView-Drag & Drop" selectorString:NSStringFromSelector(@selector(_showCollectionViewDragVC))];
+        WPFFeatureModel *model2 = [WPFFeatureModel featureWithTitleString:@"UITableView-Drag & Drop" selectorString:NSStringFromSelector(@selector(_showTableViewDragVC))];
+        WPFFeatureModel *model3 = [WPFFeatureModel featureWithTitleString:@"UIView-Drag & Drop" selectorString:NSStringFromSelector(@selector(_showNormalDragVC))];
         WPFFeatureModel *model4 = [WPFFeatureModel featureWithTitleString:@"UITableView Swipe手势新特性" selectorString:NSStringFromSelector(@selector(_showTableViewFeatureVC))];
         WPFFeatureModel *model5 = [WPFFeatureModel featureWithTitleString:@"Core NFC 暂未完成" selectorString:NSStringFromSelector(@selector(_showCoreNFCVC))];
         WPFFeatureModel *model6 = [WPFFeatureModel featureWithTitleString:@"快速评价" selectorString:NSStringFromSelector(@selector(_showStoreRequestView))];
-        WPFFeatureModel *model7 = [WPFFeatureModel featureWithTitleString:@"更换 App 头像-暂未完成" selectorString:NSStringFromSelector(@selector(_showCollectionViewDragView))];
-        
+        WPFFeatureModel *model7 = [WPFFeatureModel featureWithTitleString:@"更换 App 头像" selectorString:NSStringFromSelector(@selector(_showChangeAPPIconVC))];
         
         _dataSource = @[@[model1, model2, model3, model4, model5], @[model6, model7]];
     }

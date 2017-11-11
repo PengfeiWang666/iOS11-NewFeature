@@ -11,6 +11,9 @@
 		353E1D0B1FA085AE00B8C291 /* WPFImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 353E1D0A1FA085AE00B8C291 /* WPFImageCollectionViewCell.m */; };
 		35A131E01FB4623A00B2F64C /* WPFStoreReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A131DF1FB4623A00B2F64C /* WPFStoreReviewController.m */; };
 		35A131FB1FB4852700B2F64C /* WPFFeatureModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A131FA1FB4852700B2F64C /* WPFFeatureModel.m */; };
+		35A131FF1FB5569B00B2F64C /* WPFChangeAppIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A131FE1FB5569B00B2F64C /* WPFChangeAppIconViewController.m */; };
+		35A132051FB56D3F00B2F64C /* icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 35A132041FB56D3E00B2F64C /* icon2.png */; };
+		35A132091FB5768900B2F64C /* icon3.png in Resources */ = {isa = PBXBuildFile; fileRef = 35A132081FB5768900B2F64C /* icon3.png */; };
 		35D187711F8F9C2B000F571B /* WPFImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D187701F8F9C2B000F571B /* WPFImageTableViewCell.m */; };
 		35D187741F90598D000F571B /* WPFNormalDragViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D187731F90598D000F571B /* WPFNormalDragViewController.m */; };
 		35DAC3B51F8B5C8500D724CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC3B41F8B5C8500D724CF /* AppDelegate.m */; };
@@ -32,6 +35,10 @@
 		35A131DF1FB4623A00B2F64C /* WPFStoreReviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPFStoreReviewController.m; sourceTree = "<group>"; };
 		35A131F91FB4852700B2F64C /* WPFFeatureModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPFFeatureModel.h; sourceTree = "<group>"; };
 		35A131FA1FB4852700B2F64C /* WPFFeatureModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPFFeatureModel.m; sourceTree = "<group>"; };
+		35A131FD1FB5569B00B2F64C /* WPFChangeAppIconViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPFChangeAppIconViewController.h; sourceTree = "<group>"; };
+		35A131FE1FB5569B00B2F64C /* WPFChangeAppIconViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPFChangeAppIconViewController.m; sourceTree = "<group>"; };
+		35A132041FB56D3E00B2F64C /* icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon2.png; sourceTree = "<group>"; };
+		35A132081FB5768900B2F64C /* icon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon3.png; sourceTree = "<group>"; };
 		35D1876F1F8F9C2B000F571B /* WPFImageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPFImageTableViewCell.h; sourceTree = "<group>"; };
 		35D187701F8F9C2B000F571B /* WPFImageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPFImageTableViewCell.m; sourceTree = "<group>"; };
 		35D187721F90598D000F571B /* WPFNormalDragViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPFNormalDragViewController.h; sourceTree = "<group>"; };
@@ -105,6 +112,15 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		35A131FC1FB5567700B2F64C /* ChangeAppIcon */ = {
+			isa = PBXGroup;
+			children = (
+				35A131FD1FB5569B00B2F64C /* WPFChangeAppIconViewController.h */,
+				35A131FE1FB5569B00B2F64C /* WPFChangeAppIconViewController.m */,
+			);
+			path = ChangeAppIcon;
+			sourceTree = "<group>";
+		};
 		35D187751F906CBC000F571B /* UIView-Drag&Drop */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,9 +155,12 @@
 				35D187751F906CBC000F571B /* UIView-Drag&Drop */,
 				35DAC3CA1F8B6B2F00D724CF /* Swipe */,
 				35A131DD1FB4621800B2F64C /* StoreReview */,
+				35A131FC1FB5567700B2F64C /* ChangeAppIcon */,
 				35DAC3B31F8B5C8500D724CF /* AppDelegate.h */,
 				35DAC3B41F8B5C8500D724CF /* AppDelegate.m */,
 				35DAC3B91F8B5C8500D724CF /* Main.storyboard */,
+				35A132041FB56D3E00B2F64C /* icon2.png */,
+				35A132081FB5768900B2F64C /* icon3.png */,
 				35DAC3BC1F8B5C8500D724CF /* Assets.xcassets */,
 				35DAC3BE1F8B5C8500D724CF /* LaunchScreen.storyboard */,
 				35DAC3C11F8B5C8500D724CF /* Info.plist */,
@@ -220,6 +239,8 @@
 			files = (
 				35DAC3C01F8B5C8500D724CF /* LaunchScreen.storyboard in Resources */,
 				35DAC3BD1F8B5C8500D724CF /* Assets.xcassets in Resources */,
+				35A132091FB5768900B2F64C /* icon3.png in Resources */,
+				35A132051FB56D3F00B2F64C /* icon2.png in Resources */,
 				35DAC3BB1F8B5C8500D724CF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,6 +262,7 @@
 				35DAC3B51F8B5C8500D724CF /* AppDelegate.m in Sources */,
 				35D187741F90598D000F571B /* WPFNormalDragViewController.m in Sources */,
 				35DAC3D01F8B756700D724CF /* WPFSwipeViewController.m in Sources */,
+				35A131FF1FB5569B00B2F64C /* WPFChangeAppIconViewController.m in Sources */,
 				353E1D081FA07F6C00B8C291 /* WPFDragCollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

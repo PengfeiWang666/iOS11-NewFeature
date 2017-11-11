@@ -68,12 +68,12 @@
                   moduleName = "NewFeature"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/leon/iOS11-NewFeature/NewFeature/NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-                  timestampString = "531975661.068435"
+                  timestampString = "531986541.047826"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "53"
                   endingLineNumber = "53"
-                  offsetFromSymbolStart = "73">
+                  offsetFromSymbolStart = "84">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -83,12 +83,12 @@
                   moduleName = "NewFeature"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/leon/iOS11-NewFeature/NewFeature/NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-                  timestampString = "531975661.070731"
+                  timestampString = "531986541.049759"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "16">
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "76">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -132,12 +132,12 @@
                   moduleName = "NewFeature"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/leon/iOS11-NewFeature/NewFeature/NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-                  timestampString = "531975661.10322"
+                  timestampString = "531986541.067515"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "193"
                   endingLineNumber = "193"
-                  offsetFromSymbolStart = "129">
+                  offsetFromSymbolStart = "132">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -147,12 +147,12 @@
                   moduleName = "NewFeature"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/leon/iOS11-NewFeature/NewFeature/NewFeature/UIView-Drag&amp;Drop/WPFNormalDragViewController.m"
-                  timestampString = "531975661.105291"
+                  timestampString = "531986541.069464"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "193"
                   endingLineNumber = "193"
-                  offsetFromSymbolStart = "15">
+                  offsetFromSymbolStart = "36">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -202,6 +202,22 @@
             startingLineNumber = "267"
             endingLineNumber = "267"
             landmarkName = "-collectionView:dropSessionDidUpdate:withDestinationIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NewFeature/ChangeAppIcon/WPFChangeAppIconViewController.m"
+            timestampString = "531986540.923912"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "-_changeIconAction:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -32,7 +32,8 @@
         [alertModeButton setTitle:@"直接弹框" forState:UIControlStateNormal];
         [alertModeButton addTarget:self action:@selector(_alertModeAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:alertModeButton];
-        alertModeButton.frame = CGRectMake(100, 300, 250, 40);
+        alertModeButton.center = self.view.center;
+        alertModeButton.bounds = CGRectMake(0, 0, 200, 50);
     } else {
         self.navigationController.title = @"❌❌最低要求10.3系统❌❌";
     }
