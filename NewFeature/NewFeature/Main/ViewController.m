@@ -65,11 +65,13 @@ static NSString *const identifier = @"cellIdentifier";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     WPFFeatureModel *featureModel = self.dataSource[indexPath.section][indexPath.row];
-    // 避免产生警告"performSelector may cause a leak because its selector is unknown"
-    SEL selector = NSSelectorFromString(featureModel.selectorString);
-    IMP method = [self methodForSelector:selector];
-    void (*func)(id, SEL) = (void *)method;
-    func(self, selector);
+    if (featureModel.targetVcClass) {
+        UIViewController *targetVC =[[featureModel.targetVcClass alloc] init];
+        targetVC.navigationItem.title = featureModel.titleString;
+        targetVC.view.backgroundColor = [UIColor whiteColor];
+        targetVC.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        [self.navigationController pushViewController:targetVC animated:YES];
+    }
 }
 
 #pragma mark - Private Method
@@ -92,57 +94,18 @@ static NSString *const identifier = @"cellIdentifier";
     [self.view addSubview:_tableView];
 }
 
-- (void)_showCollectionViewDragVC {
-    WPFDragCollectionViewController *collectionDragVC = [[WPFDragCollectionViewController alloc] init];
-    [self.navigationController pushViewController:collectionDragVC animated:YES];
-}
-
-- (void)_showNormalDragVC {
-    
-    WPFNormalDragViewController *normalDragVC = [[WPFNormalDragViewController alloc] init];
-    [self.navigationController pushViewController:normalDragVC animated:YES];
-}
-
-- (void)_showTableViewDragVC {
-    WPFDragTableViewController *tableDragVC = [[WPFDragTableViewController alloc] init];
-    [self.navigationController pushViewController:tableDragVC animated:YES];
-}
-
-- (void)_showTableViewFeatureVC {
-    WPFSwipeViewController *tableViewVC = [[WPFSwipeViewController alloc] init];
-    [self.navigationController pushViewController:tableViewVC animated:YES];
-}
-
-- (void)_showStoreRequestView {
-    WPFStoreReviewController *storeVC = [[WPFStoreReviewController alloc] init];
-    [self.navigationController pushViewController:storeVC animated:YES];
-}
-
-- (void)_showCoreNFCVC {
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"该demo暂未完成" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-    [alertVC addAction:confirmAction];
-    [self presentViewController:alertVC animated:YES completion:nil];
-}
-
-- (void)_showChangeAPPIconVC {
-    WPFChangeAppIconViewController *changeIconVC = [[WPFChangeAppIconViewController alloc] init];
-    [self.navigationController pushViewController:changeIconVC animated:YES];
-}
-
 #pragma mark - setters && getters
 
 - (NSArray *)dataSource {
     if (!_dataSource) {
-        WPFFeatureModel *model1 = [WPFFeatureModel featureWithTitleString:@"UICollectionView-Drag & Drop" selectorString:NSStringFromSelector(@selector(_showCollectionViewDragVC))];
-        WPFFeatureModel *model2 = [WPFFeatureModel featureWithTitleString:@"UITableView-Drag & Drop" selectorString:NSStringFromSelector(@selector(_showTableViewDragVC))];
-        WPFFeatureModel *model3 = [WPFFeatureModel featureWithTitleString:@"UIView-Drag & Drop" selectorString:NSStringFromSelector(@selector(_showNormalDragVC))];
-        WPFFeatureModel *model4 = [WPFFeatureModel featureWithTitleString:@"UITableView Swipe手势新特性" selectorString:NSStringFromSelector(@selector(_showTableViewFeatureVC))];
-        WPFFeatureModel *model5 = [WPFFeatureModel featureWithTitleString:@"Core NFC 暂未完成" selectorString:NSStringFromSelector(@selector(_showCoreNFCVC))];
-        WPFFeatureModel *model6 = [WPFFeatureModel featureWithTitleString:@"快速评价" selectorString:NSStringFromSelector(@selector(_showStoreRequestView))];
-        WPFFeatureModel *model7 = [WPFFeatureModel featureWithTitleString:@"更换 App 头像" selectorString:NSStringFromSelector(@selector(_showChangeAPPIconVC))];
-        
-        _dataSource = @[@[model1, model2, model3, model4, model5], @[model6, model7]];
+        WPFFeatureModel *model1 = [WPFFeatureModel featureWithTitleString:@"UICollectionView-Drag & Drop" targetVcClass:[WPFDragCollectionViewController class]];
+        WPFFeatureModel *model2 = [WPFFeatureModel featureWithTitleString:@"UITableView-Drag & Drop" targetVcClass:[WPFDragTableViewController class]];
+        WPFFeatureModel *model3 = [WPFFeatureModel featureWithTitleString:@"UIView-Drag & Drop" targetVcClass:[WPFNormalDragViewController class]];
+        WPFFeatureModel *model4 = [WPFFeatureModel featureWithTitleString:@"UITableView Swipe手势新特性" targetVcClass:[WPFSwipeViewController class]];
+//        WPFFeatureModel *model5 = [WPFFeatureModel featureWithTitleString:@"Core NFC 暂未完成" targetVcClass:[]];
+        WPFFeatureModel *model6 = [WPFFeatureModel featureWithTitleString:@"快速评价" targetVcClass:[WPFStoreReviewController class]];
+        WPFFeatureModel *model7 = [WPFFeatureModel featureWithTitleString:@"更换 App 头像" targetVcClass:[WPFChangeAppIconViewController class]];
+        _dataSource = @[@[model1, model2, model3, model4], @[model6, model7]];
     }
     return _dataSource;
 }

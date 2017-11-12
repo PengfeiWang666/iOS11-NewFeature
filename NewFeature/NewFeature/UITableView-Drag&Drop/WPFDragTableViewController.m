@@ -149,10 +149,6 @@ static NSString *const identifier = @"kDragCellIdentifier";
 
 #pragma mark - Private Method
 - (void)_setupView {
-    self.navigationItem.title = @"UITableView - Drag & Drop";
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [_tableView registerClass:[WPFImageTableViewCell class] forCellReuseIdentifier:identifier];
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];

@@ -24,10 +24,6 @@
 
 #pragma mark - Private Method
 -(void)_setupUI {
-    self.navigationItem.title = @"UIView - Drag & Drop";
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    
     [self.view addSubview:self.dragView];
     self.dragView.frame = CGRectMake(50, 100, 276, 184);
     [self _addDragAndDropInterraction:self.dragView];

@@ -65,14 +65,6 @@ static NSString *kItemForTypeIdentifier = @"kItemForTypeIdentifier";
 
 #pragma mark - Private Method
 - (void)_setupUI {
-    self.navigationItem.title = @"UICollectionView - Drag & Drop";
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    
-    [self _setupCollectionView];
-}
-
-- (void)_setupCollectionView {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     CGFloat itemLength = [UIScreen mainScreen].bounds.size.width / 5;
     flowLayout.itemSize = CGSizeMake(itemLength, itemLength);
@@ -103,7 +95,7 @@ static NSString *kItemForTypeIdentifier = @"kItemForTypeIdentifier";
      */
     _collectionView.springLoaded = YES;
     _collectionView.backgroundColor = [UIColor whiteColor];
-
+    
     [self.view addSubview:_collectionView];
 }
 

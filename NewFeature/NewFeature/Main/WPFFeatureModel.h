@@ -11,8 +11,8 @@
 @interface WPFFeatureModel : NSObject
 
 @property (nonatomic, copy, readonly) NSString *titleString;
-@property (nonatomic, copy, readonly) NSString *selectorString;
+@property (nonatomic, assign, readonly) Class targetVcClass;
 
-+ (instancetype)featureWithTitleString:(NSString *)titleString selectorString:(NSString *)selectorString;
++ (instancetype)featureWithTitleString:(NSString *)titleString targetVcClass:(Class)targetVcClass;
 
 @end

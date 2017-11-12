@@ -96,10 +96,6 @@ static NSString *const identifier = @"kSwipeCellIdentifier";
 
 #pragma mark - Private Method
 - (void)_setupView {
-    self.navigationItem.title = @"UITableView Swipe-新特性";
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];

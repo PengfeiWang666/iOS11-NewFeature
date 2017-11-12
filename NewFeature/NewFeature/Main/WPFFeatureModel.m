@@ -11,17 +11,17 @@
 @interface WPFFeatureModel ()
 
 @property (nonatomic, copy) NSString *titleString;
-@property (nonatomic, copy) NSString *selectorString;
+@property (nonatomic, assign) Class targetVcClass;
 
 @end
 
 @implementation WPFFeatureModel
 
-+ (instancetype)featureWithTitleString:(NSString *)titleString selectorString:(NSString *)selectorString {
++ (instancetype)featureWithTitleString:(NSString *)titleString targetVcClass:(Class)targetVcClass {
     WPFFeatureModel *model = [[WPFFeatureModel alloc] init];
     if (model) {
         model.titleString = titleString;
-        model.selectorString = selectorString;
+        model.targetVcClass = targetVcClass;
     }
     return model;
 }
